@@ -2,6 +2,15 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.7.
 
+To run the frontend :
+1. Install the dependencies
+2. Start the development server
+3. Go to the address of the front, [here](http://localhost:4200/)
+
+## Install dependencies
+
+Run `npm install` to install all the node modules.
+
 ## Development server
 
 Run `npm start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.

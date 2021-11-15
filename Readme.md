@@ -13,3 +13,16 @@ Three videos (in french) are available. They present:
 - and a [short code review](https://drive.google.com/file/d/1jxYNfJdtd4r_pDbOthra360ei8Z17tX_/preview) .
 
 For french native speaker that wants to follow the course. The course web page is available [here](https://hackmd.diverse-team.fr/s/SJqu5DjSD).
+
+## Requirments
+
+Verify that these are installed on your computer :
+
+- Java (JDK) 11+, e.g. [Oracle JSE](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html) (with the JAVA_HOME environment variable correctly set)
+- [Maven](http://maven.apache.org/install.html)
+- [Git](https://git-scm.com/download/)
+- [Docker](https://docs.docker.com/engine/install/) (at least version 19.03.0, 20.10 preferred)
+- Docker compose ([Compose V2](https://docs.docker.com/compose/cli-command/#installing-compose-v2) preferred, should be able to run 3.8 compose files)
+- [Node](https://nodejs.org/en/) at least version 16
+- npm at least version 8 (installed with Node)
+- A Java IDE (Eclipse, IntelliJ IDEA, NetBeans, VS Code, Xcode, etc.)

@@ -20,3 +20,16 @@ Une démo de l'application est accessible [ici](https://doodle.diverse-team.fr).
 - Voici une petite [vidéo](https://drive.google.com/file/d/1jxYNfJdtd4r_pDbOthra360ei8Z17tX_/preview) de revue de code de l'application.
 
 Un descriptif du cours, des TPs et des étapes du projet est lui accessible [ici](https://hackmd.diverse-team.fr/s/SJqu5DjSD)
+
+## Prérequis
+
+Vérifiez que vous avez installé sur votre machine de développement :
+
+- Java (JDK) 11+, e.g. [Oracle JSE](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html) (avec la variable d'environnement JAVA_HOME bien configurée)
+- [Maven](http://maven.apache.org/install.html)
+- [Git](https://git-scm.com/download/)
+- [Docker](https://docs.docker.com/engine/install/) (au moins version 19.03.0, 20.10 préféré)
+- Docker compose ([Compose V2](https://docs.docker.com/compose/cli-command/#installing-compose-v2) préféré, nécésité de lancer des configuration compose en version 3.8)
+- [Node](https://nodejs.org/en/) au moins version 16
+- npm au moins version 8 (installé avec Node)
+- Un IDE Java (Eclipse, IntelliJ IDEA, NetBeans, VS Code, Xcode, etc.)
