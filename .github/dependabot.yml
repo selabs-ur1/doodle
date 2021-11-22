@@ -10,7 +10,9 @@ updates:
     # Check the npm registry for updates every day (weekdays)
     schedule:
       interval: "daily"
-    open-pull-requests-limit: 0
+    open-pull-requests-limit: 1000 #Add a limit for number of pull request to 1000 (0 will disable this module)
+    milestone: 1 #Add a group for pull request
+    target-branch: "develop" #target branch to check update of dependencies et pull request on this branch
 
     # Enable version updates for Docker
   - package-ecosystem: "maven"
@@ -19,7 +21,9 @@ updates:
     # Check for updates once a week
     schedule:
       interval: "daily"
-    open-pull-requests-limit: 0
+    open-pull-requests-limit: 1000 #Add a limit for number of pull request to 1000 (0 will disable this module)
+    milestone: 2 #Add a group for pull request
+    target-branch: "develop" #target branch to check update of dependencies et pull request on this branch
     
       # # Enable version updates for Docker
   # - package-ecosystem: "docker"
