@@ -31,15 +31,8 @@ jobs:
         
       - name: npm install
         working-directory: ./front
-        # You may pin to the exact commit or the version.
-        # uses: Jaid/action-npm-install@9483da054882538350947c4147de4c8adbf0d597
         run: npm install
-      
-      - name: Angular Full CI
-        # You may pin to the exact commit or the version.
-        # uses: colbyhill21/angular-full-ci@a3489087f6a715db335078f999c01d422a254a6c
-        uses: colbyhill21/angular-full-ci@v1.0
-        with:
-          # Command to run tests on your project, do not prepend with "npm", it is already included.
-          testcommand: run test
-          working-directory: ./front
+        
+      - name: npm run test
+        working-directory: ./front
+        run: npm run test
