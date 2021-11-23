@@ -15,11 +15,14 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [14.x]
 
     steps:
       - uses: actions/checkout@v2
-
+      
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@latest
+      
       - name: Cache node modules
         uses: actions/cache@v1
         with:
@@ -42,7 +45,8 @@ jobs:
 
       - name: Run Unit Tests
         working-directory: ${{env.working-directory}}
-        run: npm run test
+        timeout-minutes: 5
+        run: npm run ci:test
 
 #      - name: Run Codecov
 #        working-directory: ${{env.working-directory}}
