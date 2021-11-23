@@ -20,3 +20,15 @@ services:
     restart: always
     ports:
       - "2525:25"
+  doodle_api:
+    image: quarkus/code-with-quarkus-jvm
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_started
+      mail:
+        condition: service_started
+      etherpad:
+        condition: service_started
