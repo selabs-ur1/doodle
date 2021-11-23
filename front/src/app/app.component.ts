@@ -9,4 +9,5 @@ import { CreatePollComponentComponent } from './create-poll-component/create-pol
   providers: [HomeComponentComponent, CreatePollComponentComponent]
 })
 export class AppComponent {
+  title: any = "tlcfront";
 }
