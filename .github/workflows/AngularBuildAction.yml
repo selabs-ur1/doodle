@@ -39,3 +39,4 @@ jobs:
         with:
           # Command to run tests on your project, do not prepend with "npm", it is already included.
           testcommand: run test
+          working-directory: ./front
