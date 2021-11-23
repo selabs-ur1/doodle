@@ -27,6 +27,6 @@ jobs:
         working-directory: ./front
         run: npm install
         
-      - name: npm run start
+      - name: npm run build
         working-directory: ./front
         run: npm run build
