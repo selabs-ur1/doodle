@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Angular Building Checker
 
 # Controls when the workflow will run
 on:
@@ -29,4 +29,4 @@ jobs:
         
       - name: npm run start
         working-directory: ./front
-        run: npm run start
+        run: npm run build
