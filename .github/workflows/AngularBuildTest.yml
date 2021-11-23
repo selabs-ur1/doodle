@@ -30,7 +30,7 @@ jobs:
         run: echo "Running the Angular Build Action"
           
       - name: Go to /front folder
-        run: cd /front
+        run: ls
       
       - name: Angular Full CI
         # You may pin to the exact commit or the version.
