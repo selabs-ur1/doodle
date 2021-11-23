@@ -28,12 +28,9 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo "Running the Angular Build Action"
-      
-      - name: Go to ./front
-        run: cd ./front
         
       - name: Install front project
-        run: npm install
+        run: npm install --prefix ./front
       
       - name: Angular Full CI
         # You may pin to the exact commit or the version.
