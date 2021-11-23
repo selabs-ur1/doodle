@@ -26,3 +26,6 @@ Verify that these are installed on your computer :
 - [Node](https://nodejs.org/en/) at least version 16
 - npm at least version 8 (installed with Node)
 - A Java IDE (Eclipse, IntelliJ IDEA, NetBeans, VS Code, Xcode, etc.)
+
+If you are on Windows, Docker can not mount files outside your user folder (Unless an absolute path is provided).
+Please, clone the doodle in the user folder or change the compose file to correctly mount the etherpad APIKEY.txt
