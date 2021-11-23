@@ -13,6 +13,10 @@ updates:
     open-pull-requests-limit: 1000 #Add a limit for number of pull request to 1000 (0 will disable this module)
     milestone: 1 #Add a group for pull request
     target-branch: "develop" #target branch to check update of dependencies et pull request on this branch
+    labels:
+      - "javascript"
+      - "dependencies"
+      - "dependabot"
 
     # Enable version updates for Docker
   - package-ecosystem: "maven"
@@ -24,6 +28,10 @@ updates:
     open-pull-requests-limit: 1000 #Add a limit for number of pull request to 1000 (0 will disable this module)
     milestone: 2 #Add a group for pull request
     target-branch: "develop" #target branch to check update of dependencies et pull request on this branch
+    labels:
+      - "java"
+      - "dependencies"
+      - "dependabot"
     
       # # Enable version updates for Docker
   # - package-ecosystem: "docker"
