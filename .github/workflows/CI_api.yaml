@@ -48,6 +48,11 @@ jobs:
         timeout-minutes: 5
         run: npm run ci:test
 
+      - name: Action For Semantic Release
+        uses: cycjimmy/semantic-release-action@v2.6.0
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
 #      - name: Run Codecov
 #        working-directory: ${{env.working-directory}}
 #        run: npm run codecov
@@ -61,4 +66,6 @@ jobs:
   #   build
 
   #   - name: Clean Distribution Directory
-  #     run: npm run clean
+  #     run: npm run clean      
+  
+
