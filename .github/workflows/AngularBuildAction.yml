@@ -34,12 +34,12 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:      
-      - name: comment-pr
+      - name: Notify PR
         # You may pin to the exact commit or the version.
-        # uses: JoseThen/comment-pr@3c5fefaced3d2a8d0d9eb857b241d983386d581f
-        uses: JoseThen/comment-pr@v1.1.1
+        # uses: okteto/notify-pr@1372ddd587e781f2f995b1f612221f039cfedc50
+        uses: okteto/notify-pr@v1.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.YANN_TOKEN }}
         with:
-          # Comment you would like to post
-          comment: Nice PR !
-          # Github Token for authentication
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # The message
+          message: Nice PR !
