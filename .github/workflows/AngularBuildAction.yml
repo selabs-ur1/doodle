@@ -34,12 +34,10 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:      
-      - name: Notify PR
-        # You may pin to the exact commit or the version.
-        # uses: okteto/notify-pr@1372ddd587e781f2f995b1f612221f039cfedc50
-        uses: okteto/notify-pr@v1.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.YANN_TOKEN }}
+      - name: 'Comment PR'
+        uses: actions/github-script@0.3.0
         with:
-          # The message
-          message: Nice PR !
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { issue: { number: issue_number }, repo: { owner, repo }  } = context;
+            github.issues.createComment({ issue_number, owner, repo, body: 'Hello world ! 👋' });
