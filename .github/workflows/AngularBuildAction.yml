@@ -38,14 +38,12 @@ jobs:
         run: npm run build
 
   merge:
-    env:
-      PR_Number: ${{ github.event.number }}
     needs: build
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     steps:
     - name: Display the PR number
-      run: echo $PR_Number
+      run: echo ${{ github.event.number }}
     
     - name: merge-pr
       # You may pin to the exact commit or the version.
@@ -56,6 +54,6 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         # merge method (squash, merge or rebase)
         # pull request number to merge
-        pull_request: $PR_Number
+        pull_request: ${{ github.event.number }}
         
       
