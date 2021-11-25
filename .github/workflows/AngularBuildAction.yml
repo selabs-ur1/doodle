@@ -5,6 +5,10 @@ name: Angular Building Checker
 # Controls when the workflow will run
 on: [workflow_dispatch, pull_request]
 
+permissions:
+  contents: write
+  pull-requests: write 
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
