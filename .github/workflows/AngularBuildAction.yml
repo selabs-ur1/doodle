@@ -21,6 +21,7 @@ permissions:
 jobs:
   # This workflow contains a single job called "build"
   build:
+    if: ${{ github.event.label.name == 'dependabot' }}
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -38,6 +39,7 @@ jobs:
         run: npm run build
 
   merge:
+    if: ${{ github.event.label.name == 'dependabot' }}
     needs: build
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
