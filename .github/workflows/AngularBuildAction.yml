@@ -7,7 +7,7 @@ on: [workflow_dispatch, pull_request]
 
 permissions:
   actions: write
-  checks: write|none
+  checks: write
   contents: write
   deployments: write
   issues: write
@@ -49,4 +49,5 @@ jobs:
       with:
         # Secret GitHub API token to use for making API requests.
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
       
