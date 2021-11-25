@@ -25,6 +25,7 @@ jobs:
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
+    if: contains(github.event.pull_request.labels.*.name, 'dependabot')
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
@@ -43,7 +44,7 @@ jobs:
     needs: build
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    if: ${{ github.event.label.name == 'dependabot' }}
+    if: contains(github.event.pull_request.labels.*.name, 'dependabot')
     steps:
     - name: Display the PR number
       run: echo ${{ github.event.number }}
