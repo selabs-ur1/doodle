@@ -39,13 +39,13 @@ jobs:
 
   merge:
     env:
-      PR_Number: ${{ $(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH") }}
+      PR_Number: $(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
     needs: build
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     steps:
     - name: Display the PR number
-      run: echo $(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
+      run: echo $PR_Number
     
     - name: merge-pr
       # You may pin to the exact commit or the version.
