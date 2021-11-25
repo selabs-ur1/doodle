@@ -34,15 +34,24 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     steps:
-    - name: "Trigger the pipeline"
-      uses: okteto/pipeline@latest
-      with:
-        name: pr-${{ github.event.number }}
-        timeout: 8m
-    
-    - name: comment PR
-      uses: okteto/notify-pr@v1.0
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        msg: "Preview environment available at https://movies-pr-${{ github.event.number }}-cindylopez.cloud.okteto.net"
+      - name: Context
+        uses: okteto/context@latest
+        with:
+          token: ${{ secrets.OKTETO_TOKEN }}
+
+      - name: "Activate Namespace"
+        uses: okteto/namespace@latest
+        with:
+          name: cindylopez
+      - name: "Trigger the pipeline"
+        uses: okteto/pipeline@latest
+        with:
+          name: pr-${{ github.event.number }}
+          timeout: 8m
+
+      - name: comment PR
+        uses: okteto/notify-pr@v1.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          msg: "Preview environment available at https://movies-pr-${{ github.event.number }}-cindylopez.cloud.okteto.net"
