@@ -21,15 +21,17 @@ permissions:
 jobs:
   # This workflow contains a single job called "build"
   build:
-    if: ${{ github.event.label.name == 'dependabot' }}
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
+    if: ${{ github.event.label.name == 'dependabot' }}
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      
+      - name: Display label
+        run: echo ${{ github.event.label.name }}
+        
       - name: npm install
         working-directory: ./front
         run: npm install
@@ -39,10 +41,10 @@ jobs:
         run: npm run build
 
   merge:
-    if: ${{ github.event.label.name == 'dependabot' }}
     needs: build
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    if: ${{ github.event.label.name == 'dependabot' }}
     steps:
     - name: Display the PR number
       run: echo ${{ github.event.number }}
