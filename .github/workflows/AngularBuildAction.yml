@@ -53,6 +53,6 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         # merge method (squash, merge or rebase)
         # pull request number to merge
-        pull_request: pull_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
+        pull_request: $(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
         
       
