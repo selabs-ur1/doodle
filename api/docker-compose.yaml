@@ -21,7 +21,7 @@ services:
     ports:
       - "2525:25"
   doodle_api:
-    image: quarkus/code-with-quarkus-jvm
+    image: martingarnier/api_doodle
     restart: always
     ports:
       - "8080:8080"
