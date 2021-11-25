@@ -1,0 +1,75 @@
+name: Front
+
+on:
+  push:
+    branches: [ feature/push-images ]
+
+  workflow_dispatch:
+
+jobs:
+  
+  CI:
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./front
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@latest
+      
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-node-
+            
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.4.1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install Dependencies
+        working-directory: ${{env.working-directory}}
+        run: npm install
+
+      - name: Lint
+        working-directory: ${{env.working-directory}}
+        run: npm run lint
+
+      - name: Run Unit Tests
+        working-directory: ${{env.working-directory}}
+        timeout-minutes: 5
+        run: npm run ci:test
+
+      # - name: Action For Semantic Release
+      #   uses: cycjimmy/semantic-release-action@v2.6.0
+      #   id: semantic
+      #   env:
+      #     GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+      - name: Build artefacts
+        working-directory: ${{env.working-directory}}
+        timeout-minutes: 5
+        run: npm run build
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: ${{env.working-directory}}
+          push: true
+          # tags: doodle/front:${{ steps.semantic.outputs.new_release_version }}
+          tags: ghcr.io/doodle/front:latest
