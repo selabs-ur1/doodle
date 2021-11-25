@@ -42,12 +42,17 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     steps:
-    - name: PR Merge
+    - name: Display the PR number
+      run: echo $(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
+    - name: merge-pr
       # You may pin to the exact commit or the version.
-      # uses: actions-cool/pr-merge@fe1e933579252a77a59d3e9c21cfa3f184cd2c65
-      uses: actions-cool/pr-merge@v0.0.1-beat
+      # uses: nbrugger-tgm/merge-pr-action@80dca9937195f2bb2413eb693fe25614fadb0385
+      uses: nbrugger-tgm/merge-pr-action@v0.2.2
       with:
-        # Secret GitHub API token to use for making API requests.
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # github token
+        token: ${{ secrets.GITHUB_TOKEN }}
+        # merge method (squash, merge or rebase)
+        # pull request number to merge
+        pull_request: pull_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
         
       
