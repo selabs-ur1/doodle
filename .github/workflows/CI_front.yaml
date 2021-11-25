@@ -71,4 +71,4 @@ jobs:
         with:
           context: ${{env.working-directory}}
           push: true
-          tags: doodle/front:${{ steps.semantic.outputs.new_release_version }}
+          tags: esir3-doodle/front:${{ steps.semantic.outputs.new_release_version }}

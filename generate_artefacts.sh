@@ -12,7 +12,7 @@ cd ..
 # Generate angular artefacts
 cd front
 npm install
-npx ng build
+npm run build
 
 set +e
 set +x
