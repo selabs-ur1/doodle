@@ -1,31 +1,59 @@
-# Remote meetings planning
+# Cloud-native applications and microservice architecture
 
-This project is used in a course on the *ops* part at the [University of Rennes](https://www.univ-rennes1.fr/), France. It is a kind of doodle clone developed in so-called "cloud-native" technologies in order to allow students to work on a continuous deployment chain in a containerized environment. Among the feature, the application automatically initializes a pad for the meeting and a chat room for the meeting participants.
+Docker for the back
+Create a microservice
+Connect the microservice
+Docker for the new microservice
 
-- The [back](https://github.com/barais/doodlestudent/tree/main/api) is developed using the [quarkus.io](https://quarkus.io/) framework. 
-- The [front](https://github.com/barais/doodlestudent/tree/main/front) is developed in [angular](https://angular.io/) using the [primeng](https://www.primefaces.org/primeng/)  angular UI component library and the [fullcalendar](https://fullcalendar.io/) graphical component.
+## Run the back applicaiton using docker
 
-A demo of the application is available [here](https://doodle.diverse-team.fr/).
+Update the application.yml file (for windows) :
+In order to do api requests from one docker container to another, you need to replace the host of the other container
+by the name of the images created when using docker-compose up.
+So for the etherpad microservice, it's api-etherpad-1, for the mail, it's api-mail-1 and for the database, it's api-db-1.
+Thus, you need to clean your tests file because they will not work anymore because we changed the host.
 
-Three videos (in french) are available. They present:
-- the [main application feature](https://drive.google.com/file/d/1GQbdgq2CHcddTlcoHqM5Zc8Dw5o_eeLg/preview), 
-- its [architecture](https://drive.google.com/file/d/1l5UAsU5_q-oshwEW6edZ4UvQjN3-tzwi/preview) 
-- and a [short code review](https://drive.google.com/file/d/1jxYNfJdtd4r_pDbOthra360ei8Z17tX_/preview) .
+Then, you can package and build the application using a dockerfile.
 
-For french native speaker that wants to follow the course. The course web page is available [here](https://hackmd.diverse-team.fr/s/SJqu5DjSD).
+```shell script
+./mvnw package
 
-## Requirments
+docker build -f api/src/main/docker/Dockerfile.jvm -t quarkus/code-with-quarkus-jvm .
+```
 
-Verify that these are installed on your computer :
+Now you can update the docker-compose file to run the application with a single command.
+Add a new service to the docker-compose.
+'''yaml
+  doodle_api:
+    image: quarkus/code-with-quarkus-jvm
+    restart: always
+    ports:
+      - "8080:8080"
+'''
 
-- Java (JDK) 11+, e.g. [Oracle JSE](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html) (with the JAVA_HOME environment variable correctly set)
-- [Maven](http://maven.apache.org/install.html)
-- [Git](https://git-scm.com/download/)
-- [Docker](https://docs.docker.com/engine/install/) (at least version 19.03.0, 20.10 preferred)
-- Docker compose ([Compose V2](https://docs.docker.com/compose/cli-command/#installing-compose-v2) preferred, should be able to run 3.8 compose files)
-- [Node](https://nodejs.org/en/) at least version 16
-- npm at least version 8 (installed with Node)
-- A Java IDE (Eclipse, IntelliJ IDEA, NetBeans, VS Code, Xcode, etc.)
+We set the restart parameter to always because the application need the others microservices to run in order to compile.
+So the doodle_api container may restart a couple of times before running correctly.
 
-If you are on Windows, Docker can not mount files outside your user folder (Unless an absolute path is provided).
-Please, clone the doodle in the user folder or change the compose file to correctly mount the etherpad APIKEY.txt
+Use the following command to run the whole application. The application should be running at localhost:8080.
+```shell script
+docker-compose up --detach
+```
+
+## Publish the image to docker
+
+To publish the image of api_doodle on docker to use it on remote machines, you first need to create a repository on docker hub.
+Then you need to build the project with the name of the repository.
+
+```shell script
+docker build -f api/src/main/docker/Dockerfile.jvm -t [name_of_the_repository] .
+```
+
+Do not forget to update the name of the image in the docker-compose file.
+
+Then you can push your image to your docker hub repository.
+
+```shell script
+docker push [name_of_the_repository]
+```
+
+And that's it, now you can run your application from other devices using the docker-compose file. You only need to check that the device has the rights to access your repository.
