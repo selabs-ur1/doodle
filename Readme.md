@@ -23,13 +23,13 @@ docker build -f api/src/main/docker/Dockerfile.jvm -t quarkus/code-with-quarkus-
 
 Now you can update the docker-compose file to run the application with a single command.
 Add a new service to the docker-compose.
-'''yaml
+```yaml
   doodle_api:
     image: quarkus/code-with-quarkus-jvm
     restart: always
     ports:
       - "8080:8080"
-'''
+```
 
 We set the restart parameter to always because the application need the others microservices to run in order to compile.
 So the doodle_api container may restart a couple of times before running correctly.
