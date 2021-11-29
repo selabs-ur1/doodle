@@ -5,6 +5,11 @@
 ## Implementing fuzzing with Javafuzz
 [*JavaFuzz*](https://gitlab.com/gitlab-org/security-products/analyzers/fuzzers/javafuzz)
 
+### Javafuzz in local
+
+### Javafuzz in pipeline
+Fuzzing works out best if done continuously. As projects evolve,fuzz testing should be apply to the most recent versions of them in order to identify revisions when a regression was introduced as well as detect bug fixes and the corresponding revision.
+
 ## Implementing fuzzing with JQF
 [*JQF*](https://github.com/rohanpadhye/jqf#what-is-structure-aware-fuzzing)
 
