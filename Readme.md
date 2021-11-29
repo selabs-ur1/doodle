@@ -11,19 +11,12 @@ Pour pouvoir commencer , on démarre l'application doodle en exécutant :
 ## Open-Tracing et Jaeger
 Installation de OpenTracing & Jaeger :
 Ajout des dépendances dans le fichier pom.xml dans api java
-<dependency>
-<dependency>
-  <groupId>io.jaegertracing</groupId>
-  <artifactId>jaeger-client</artifactId>
-  <version>0.32.0</version>
-</dependency>
+
+![image](https://user-images.githubusercontent.com/57901216/143828633-6e273eda-ba44-4f6a-91f8-2852a0aac436.png)
 
 et
 
-<dependency>
-	<groupId>io.quarkus</groupId>
-	<artifactId>quarkus-smallrye-opentracing</artifactId>
-</dependency>
+![image](https://user-images.githubusercontent.com/57901216/143828697-c0875a87-95e5-4f88-9ece-9a0fd2c5b3b5.png)
 
 
 De ce fait , exécuter dans un powershell
