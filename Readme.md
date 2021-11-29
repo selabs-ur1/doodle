@@ -2,8 +2,8 @@
 
 ## Pré-requis
 Pour pouvoir commencer , on démarre l'application doodle en exécutant :
--dans le dossier api : docker-compose up -d
-	                     ./mvnw compile quarkus:dev
+-dans le dossier api : 1. docker-compose up -d
+	                    2. ./mvnw compile quarkus:dev
 -dans le dossier front : npm install
 	                       npm start 
  le lien : http://localhost:4200/ nous donne accès à l'interface de doodle.
