@@ -1,4 +1,4 @@
-# Tutorial Monitoring de notre application doodle
+# Tutoriel Monitoring de notre application doodle
 
 ## Pré-requis
 Pour pouvoir commencer , on démarre l'application doodle en exécutant :
