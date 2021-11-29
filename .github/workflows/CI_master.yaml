@@ -2,7 +2,7 @@ name: CI-CD-Master
 
 on:
   push:
-    branches: [ master, feature/analyseDocker ]
+    branches: [ master ]
 
   workflow_dispatch:
 
@@ -101,11 +101,11 @@ jobs:
           name: angular-dist
           path: ./front/dist
 
-      # - name: Action For Semantic Release
-      #   uses: cycjimmy/semantic-release-action@v2.6.0
-      #   id: semantic
-      #   env:
-      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Action For Semantic Release
+        uses: cycjimmy/semantic-release-action@v2.6.0
+        id: semantic
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v1
@@ -119,20 +119,20 @@ jobs:
         with:
           context: ./api
           push: true
-          tags: ghcr.io/valentinlorand/doodle/back:1.35.0
+          tags: ghcr.io/valentinlorand/doodle/back:${{ steps.semantic.outputs.new_release_version }}
 
       - name: Build and push frontend Docker image
         uses: docker/build-push-action@v2
         with:
           context: ./front
           push: true
-          tags: ghcr.io/valentinlorand/doodle/front:1.35.0
+          tags: ghcr.io/valentinlorand/doodle/front:${{ steps.semantic.outputs.new_release_version }}
 
       - name: Analyse Front Docker Image
         uses: anchore/scan-action@v3
         id: scanFront
         with:
-          image: "ghcr.io/valentinlorand/doodle/front:1.35.0"
+          image: "ghcr.io/valentinlorand/doodle/front:${{ steps.semantic.outputs.new_release_version }}"
           acs-report-enable: true
 
       - name: Display ACS Front Report
@@ -143,7 +143,7 @@ jobs:
         uses: anchore/scan-action@v3
         id: scanBack
         with:
-          image: "ghcr.io/valentinlorand/doodle/back:1.35.0"
+          image: "ghcr.io/valentinlorand/doodle/back:${{ steps.semantic.outputs.new_release_version }}"
           acs-report-enable: true
           fail-build: false
 
