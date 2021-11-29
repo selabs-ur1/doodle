@@ -25,7 +25,7 @@ Une explication des différents composants de ce qu'on ajoutera pour faire du mo
 Installation de OpenTracing & Jaeger :
 Ajout des dépendances dans le fichier pom.xml dans api java avec :
 ![image](https://user-images.githubusercontent.com/57901216/143852893-f7547914-a084-4f38-942c-5aa9a45daf97.png) 
-pour avoir
+'/n'pour avoir
 
 ![image](https://user-images.githubusercontent.com/57901216/143853629-1008448d-fff4-4b3d-ac25-d4bdac79a390.png)
 
