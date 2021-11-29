@@ -8,8 +8,60 @@ In this pull request we had the opportunity to manipulate different bots. In a f
 ## Dependabot and Continious Integration (C.I)
 ### Dependabot
 
-Dependabot automatically raise pull requests to keep your dependencies up-to-date. This helps reduce your exposure to older versions of dependencies. Using newer versions makes it easier to apply patches if security vulnerabilities are discovered, and also makes it easier for Dependabot security updates to successfully raise pull requests to upgrade vulnerable dependencies.
-<br>TODO
+Dependabot automatically raise pull requests to keep your dependencies up-to-date. This helps reduce your exposure to older versions of dependencies. Using newer versions makes it easier to apply patches if security vulnerabilities are discovered, and also makes it easier for Dependabot security updates to successfully raise pull requests to upgrade vulnerable dependencies. 
+
+In order to install the Dependabot, you have to go through the repository settings:
+![image](https://user-images.githubusercontent.com/24569493/143913942-76591e02-8fd4-467c-8bfd-98a5b92b8b84.png)
+
+After that you will have to create a folder at the root of the repository named ".github" which should contain the bot configuration file "dependabot.yml", this file should look like this one:
+
+```
+# Basic dependabot.yml file with
+# minimum configuration for two package managers
+
+version: 2
+updates:
+  # Enable version updates for npm
+  - package-ecosystem: "npm"
+    # Look for `package.json` and `lock` files in the `root` directory
+    directory: "/front"
+    # Check the npm registry for updates every day (weekdays)
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 1000 #Add a limit for number of pull request to 1000 (0 will disable this module)
+    milestone: 1 #Add a group for pull request
+    target-branch: "develop" #target branch to check update of dependencies et pull request on this branch
+    labels:
+      - "javascript"
+      - "dependencies"
+      - "dependabot"
+
+    # Enable version updates for Docker
+  - package-ecosystem: "maven"
+    # Look for a `Dockerfile` in the `root` directory
+    directory: "/api"
+    # Check for updates once a week
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 1000 #Add a limit for number of pull request to 1000 (0 will disable this module)
+    milestone: 2 #Add a group for pull request
+    target-branch: "develop" #target branch to check update of dependencies et pull request on this branch
+    labels:
+      - "java"
+      - "dependencies"
+      - "dependabot"
+    
+      # # Enable version updates for Docker
+  # - package-ecosystem: "docker"
+    # # Look for a `Dockerfile` in the `root` directory
+    # directory: "/api"
+    # # Check for updates once a week
+    # schedule:
+      # interval: "daily"
+```
+
+It should contain a "package-ecosystem" tag per project to be included in the dependency updates. Under this tag will be present a directory tag in order to indicate the path to the project to update continuously. For all the details of the configuration tags: https://docs.github.com/en/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/configuration-options-for-dependency-updates
+
 ### Continious Integration (C.I) 
 
 To perform continious integration on github we use GitHub Action. Github Action helps you automate tasks within your software development life cycle. GitHub Actions are event-driven, meaning that you can run a series of commands after a specified event has occurred. For example, every time someone creates a pull request for a repository, you can automatically run a command that executes a software testing script. 
