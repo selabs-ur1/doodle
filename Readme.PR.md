@@ -50,14 +50,6 @@ updates:
       - "java"
       - "dependencies"
       - "dependabot"
-    
-      # # Enable version updates for Docker
-  # - package-ecosystem: "docker"
-    # # Look for a `Dockerfile` in the `root` directory
-    # directory: "/api"
-    # # Check for updates once a week
-    # schedule:
-      # interval: "daily"
 ```
 
 It should contain a "package-ecosystem" tag per project to be included in the dependency updates. Under this tag will be present a directory tag in order to indicate the path to the project to update continuously. For all the details of the configuration tags: https://docs.github.com/en/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/configuration-options-for-dependency-updates
