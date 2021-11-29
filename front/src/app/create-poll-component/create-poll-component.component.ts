@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { PollService } from '../poll-service.service';
