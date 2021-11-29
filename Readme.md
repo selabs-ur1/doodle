@@ -51,3 +51,14 @@ pour ouvrir l’UI de Jaeger
 
 ## Visualisation du monitoring et du logging
 
+### Runner l'application de l'outil
+La première étape est :
+
+![image](https://user-images.githubusercontent.com/57901216/143883254-5921c644-a1e9-46da-a661-94879dba6f71.png)
+
+Et comme nous avons utilisé , 
+
+![image](https://user-images.githubusercontent.com/57901216/143883423-3d00f0c0-d71a-426d-8ed6-8ee2e3d97c0d.png)
+
+O
+
