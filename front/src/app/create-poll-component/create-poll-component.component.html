@@ -63,18 +63,24 @@
       <ng-template pTemplate="content">
         <div class="p-fluid">
 
-        <div class="p-field">
+        <div class="p-fluid">
           <p style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; font-size: 1rem;font-weight: normal;">Avez vous un agenda avec un flux ics accessible ?</p>
           <p-inputSwitch [(ngModel)]="hasics"></p-inputSwitch>
+
         </div>
+
         <div *ngIf="hasics" class="p-field">
           <label for="ics">URL ICS du participant</label>
           <span class="p-input-icon-right">
             <i *ngIf="loadics" class="pi pi-spin pi-spinner" ></i>
             <input #mail="ngModel" id="ics" type="text"  pInputText (change)="getICS()" [(ngModel)]="ics">
           </span>
+
         </div>
       </div>
+        <div>
+          <p-button label="Tout Supprimer"></p-button>
+        </div>
 
             <full-calendar #calendar [options]="options"></full-calendar>
       </ng-template>
@@ -82,6 +88,7 @@
               <div>
                   <p-button label="Back" (onClick)="prevPage1()" icon="pi pi-angle-left"></p-button>
                   <p-button class="float-right" label="Next" (onClick)="nextPage1()" icon="pi pi-angle-right" iconPos="right"></p-button>
+
               </div>
 
 

@@ -6,6 +6,7 @@ import frLocale from '@fullcalendar/core/locales/fr';
 import { PollChoice, Poll, User } from '../model/model';
 import { ActivatedRoute } from '@angular/router';
 
+
 @Component({
   selector: 'app-create-poll-component',
   templateUrl: './create-poll-component.component.html',
