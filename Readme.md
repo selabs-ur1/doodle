@@ -25,4 +25,5 @@ docker run -d -p 5775:5775/udp -p 16686:16686 jaegertracing/all-in-one:latest
 Finalement aller sur : http://localhost:16686/ 
 pour ouvrir l’UI de Jaeger
 
+## Visualisation du monitoring et du logging
 
