@@ -1,1 +1,0 @@
-POST /api/users {"username":"arthur","mail":"arthur@leymin.me"}

@@ -31,7 +31,10 @@ jobs:
 
     - name: Fuzzing with Javafuzz
       working-directory: ./api
-      run: MAVEN_OPTS="-javaagent:jacocoagent.jar" mvn javafuzz:fuzz -DclassName=fr.istic.tlc.JavaFuzzExample -Ddirs=CORPUS_DIR
+      run: |
+        mvn install
+        wget -O jacocoagent.jar https://gitlab.com/gitlab-org/security-products/analyzers/fuzzers/javafuzz/-/raw/master/javafuzz-maven-plugin/src/main/resources/jacocoagent-exp.jar
+        MAVEN_OPTS="-javaagent:jacocoagent.jar" mvn javafuzz:fuzz -DclassName=fr.istic.tlc.JavafuzzTestExample -Ddirs=CORPUS_DIR
 
     # - name: Publish to GitHub Packages Apache Maven
     #   run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
