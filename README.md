@@ -2,11 +2,13 @@
 
 [Fuzzing or fuzz testing](https://en.wikipedia.org/wiki/Fuzzing) is a automated testing technique which consists in code blocks (*Fuzzers*) injecting false or random data as input to a program and monitoring such program for errors (crashes, failing built-in code assertions, or potential memory leaks). Put simply, Fuzzing is an automatic bug finding technique which purpose is to find software implementation faults, and identify them by using invalid data as input.
 
-## Implementing fuzzing with JavaFuzz
+## Implementing fuzzing with Javafuzz
 [*JavaFuzz*](https://gitlab.com/gitlab-org/security-products/analyzers/fuzzers/javafuzz)
 
 ## Implementing fuzzing with JQF
 [*JQF*](https://github.com/rohanpadhye/jqf#what-is-structure-aware-fuzzing)
+
+## Implementing fuzzing with RAFT
 
 ## Some fuzzing tools
 
