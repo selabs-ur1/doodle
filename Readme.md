@@ -9,6 +9,11 @@ Pour pouvoir commencer , on démarre l'application doodle en exécutant :
  le lien : http://localhost:4200/ nous donne accès à l'interface de doodle.
  
 ## Open-Tracing et Jaeger
+
+![image](https://user-images.githubusercontent.com/57901216/143829912-ed348025-33a3-4936-9dd6-44eb8e1956da.png)
+
+
+
 Installation de OpenTracing & Jaeger :
 Ajout des dépendances dans le fichier pom.xml dans api java
 
