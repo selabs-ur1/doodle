@@ -9,7 +9,8 @@ Pour pouvoir commencer , on démarre l'application doodle en exécutant :
 -dans le dossier front : 
 1. npm install
 2. npm start 
- le lien : http://localhost:4200/ nous donne accès à l'interface de doodle.
+
+Et le lien : http://localhost:4200/ nous donne accès à l'interface de doodle.
  
 ## Open-Tracing et Jaeger
 
