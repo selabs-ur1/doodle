@@ -2,12 +2,12 @@ name: CI-CD-Master
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, feature/analyseDocker ]
 
   workflow_dispatch:
 
 jobs:
-  
+
   CI-Front:
     runs-on: ubuntu-latest
     env:
@@ -19,17 +19,17 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      
+
       - name: Setup Chrome
         uses: browser-actions/setup-chrome@latest
-      
+
       - name: Cache node modules
         uses: actions/cache@v1
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: ${{ runner.os }}-node-
-            
+
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.4.1
         with:
@@ -82,8 +82,8 @@ jobs:
         with:
           name: tlcdemoApp-1.0.0-SNAPSHOT-runner.jar
           path: ./api/target/tlcdemoApp-1.0.0-SNAPSHOT-runner.jar
-      
-  CD:
+
+  CI-Docker:
     needs: [ CI-Front, CI-Back ]
     runs-on: ubuntu-latest
     steps:
@@ -101,11 +101,11 @@ jobs:
           name: angular-dist
           path: ./front/dist
 
-      - name: Action For Semantic Release
-        uses: cycjimmy/semantic-release-action@v2.6.0
-        id: semantic
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Action For Semantic Release
+      #   uses: cycjimmy/semantic-release-action@v2.6.0
+      #   id: semantic
+      #   env:
+      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v1
@@ -119,11 +119,33 @@ jobs:
         with:
           context: ./api
           push: true
-          tags: ghcr.io/valentinlorand/doodle/back:${{ steps.semantic.outputs.new_release_version }}
+          tags: ghcr.io/valentinlorand/doodle/back:1.35.0
 
       - name: Build and push frontend Docker image
         uses: docker/build-push-action@v2
         with:
           context: ./front
           push: true
-          tags: ghcr.io/valentinlorand/doodle/front:${{ steps.semantic.outputs.new_release_version }}
+          tags: ghcr.io/valentinlorand/doodle/front:1.35.0
+
+      - name: Analyse Front Docker Image
+        uses: anchore/scan-action@v3
+        id: scanFront
+        with:
+          image: "ghcr.io/valentinlorand/doodle/front:1.35.0"
+          acs-report-enable: true
+
+      - name: Display ACS Front Report
+        run : cat ${{ steps.scanFront.outputs.sarif }}
+
+
+      - name: Analyse Backend Docker Image
+        uses: anchore/scan-action@v3
+        id: scanBack
+        with:
+          image: "ghcr.io/valentinlorand/doodle/back:1.35.0"
+          acs-report-enable: true
+          fail-build: false
+
+      - name: Display ACS Back Report
+        run : cat ${{ steps.scanBack.outputs.sarif }}
