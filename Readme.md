@@ -13,13 +13,13 @@ Pour pouvoir commencer , on démarre l'application doodle en exécutant :
 ![image](https://user-images.githubusercontent.com/57901216/143829912-ed348025-33a3-4936-9dd6-44eb8e1956da.png)
 
 Une explication des différents composants de ce qu'on ajoutera pour faire du monitoring
-*Agent – Un daemon réseau qui écoute les intervalles envoyés via le DAO de l'application.
-*Client – Le composant qui implémente l'API OpenTracing pour le traçage distribué.
-*Collecteur – Le composant qui reçoit les étendues et les ajoute dans une file d'attente à traiter.
-*Console – Une interface utilisateur qui permet aux utilisateurs de visualiser leurs données de traçage distribuées.
-*Requête – Un service qui récupère les traces du stockage.
-*Span – L'unité logique de travail dans Jaeger, qui comprend le nom, l'heure de début et la durée de l'opération.
-*Trace – La façon dont Jaeger présente les demandes d'exécution. Une trace est composée d'au moins une plage.
+* Agent – Un daemon réseau qui écoute les intervalles envoyés via le DAO de l'application.
+* Client – Le composant qui implémente l'API OpenTracing pour le traçage distribué.
+* Collecteur – Le composant qui reçoit les étendues et les ajoute dans une file d'attente à traiter.
+* Console – Une interface utilisateur qui permet aux utilisateurs de visualiser leurs données de traçage distribuées.
+* Requête – Un service qui récupère les traces du stockage.
+* Span – L'unité logique de travail dans Jaeger, qui comprend le nom, l'heure de début et la durée de l'opération.
+* Trace – La façon dont Jaeger présente les demandes d'exécution. Une trace est composée d'au moins une plage.
 
 
 Installation de OpenTracing & Jaeger :
