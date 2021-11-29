@@ -29,6 +29,11 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file api/pom.xml
 
+    - name: Fuzzing with Javafuzz
+      run: |
+        cd api/,
+        MAVEN_OPTS="-javaagent:jacocoagent.jar" mvn javafuzz:fuzz -DclassName=fr.istic.tlc.JavafuzzTestExample -Ddirs=api/CORPUS_DIR
+
     # - name: Publish to GitHub Packages Apache Maven
     #   run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
     #   env:
