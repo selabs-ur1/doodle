@@ -63,5 +63,7 @@ Et comme nous avons utilisé , le fichier 'application.properties', nous exécut
 
 ![image](https://user-images.githubusercontent.com/57901216/143883423-3d00f0c0-d71a-426d-8ed6-8ee2e3d97c0d.png)
 
-O
+Sur le port , 16686 donc à l'adresse : localhost:16686 , nous avons donc l'interface graphique de Jaeger :
+![image](https://user-images.githubusercontent.com/57901216/143893858-488e957b-af61-47e8-9c8e-4a2802322466.png)
+
 
