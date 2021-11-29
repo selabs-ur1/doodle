@@ -67,3 +67,6 @@ Sur le port , 16686 donc à l'adresse : localhost:16686 , nous avons donc l'inte
 ![image](https://user-images.githubusercontent.com/57901216/143893858-488e957b-af61-47e8-9c8e-4a2802322466.png)
 
 
+### Monitoring et logging de l'application doodle 
+Obervons maintenant les résultats proposés par l'outil :
+
