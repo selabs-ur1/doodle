@@ -1,0 +1,1 @@
+POST /api/polls/ {"title":"présentation","location":"online","description":"présentationduprojetdeGL","has_meal":"false"}
