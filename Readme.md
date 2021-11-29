@@ -30,9 +30,12 @@ pour avoir
 
 ![image](https://user-images.githubusercontent.com/57901216/143853629-1008448d-fff4-4b3d-ac25-d4bdac79a390.png)
 
-
-et
-
+### Créer la configuration
+![image](https://user-images.githubusercontent.com/57901216/143854807-3c2c5973-85cd-4299-96b5-2e424c77b2dc.png)
+* Pour la première, si La propriété quarkus.jaeger.service-name n'est pas fournie, un traceur « no-op » sera configuré, ce qui entraînera l'absence de données de traçage signalées au backend.
+* De suite, une configuration d'un échantillonneur constant est utilisé.
+* En troisième lieu, un échantillonnage de toutes les demandes. On peut régler le sampler-param quelque part entre 0 et 1, par ex. 0,50
+* Et finalement, nous ajoutons des ID de trace dans le message de journal.
 
 
 
