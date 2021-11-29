@@ -26,12 +26,12 @@ jobs:
         # server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
         # settings-path: ${{ github.workspace }}/api # location for the settings.xml file
 
-    - name: Build with Maven
-      run: mvn -B package --file api/pom.xml
+    # - name: Build with Maven
+    #   run: mvn -B package --file api/pom.xml
 
     - name: Fuzzing with Javafuzz
       run: |
-        cd api/,
+        cd api/
         MAVEN_OPTS="-javaagent:jacocoagent.jar" mvn javafuzz:fuzz -DclassName=fr.istic.tlc.JavafuzzTestExample -Ddirs=api/CORPUS_DIR
 
     # - name: Publish to GitHub Packages Apache Maven
