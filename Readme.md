@@ -1,7 +1,4 @@
 # Tutoriel Monitoring de l'application doodle avec Jaeger & OpenTracing
-
-## Pré-requis
-
  
 ## Schéma du fonctionnement de Jaeger
 
@@ -86,9 +83,42 @@ $ npm start
 ``` 
 ## Monitoring de l'application
 A l'adresse :  http://localhost:16686/, nous avons donc l'interface graphique de Jaeger :
-![image](https://user-images.githubusercontent.com/57901216/143893858-488e957b-af61-47e8-9c8e-4a2802322466.png)
+![image](https://user-images.githubusercontent.com/65306153/144050178-4005ca68-4d8e-4037-963a-6012bb742c08.png)
+
+### Pour commencer, nous pouvons créer un sondage sur l'application et voir le résultat sur Jaeger :
+Création de notre poll :
+![image](https://user-images.githubusercontent.com/65306153/144050515-70dabaf7-032e-4956-8163-fa124bb97a29.png)
+
+<br/>
+
+Résultat sur Jaeger :
+![image](https://user-images.githubusercontent.com/65306153/144050920-501d1183-7475-4708-8849-112799a59980.png)
+Le point en haut nous indique l'heure à laquelle la requète a été faite ainsi que sa durée (temps jusqu'à réponse).
+Nous pouvons cliquer sur sa trace pour en apprendre davantage.
+
+<br/>
+
+![image](https://user-images.githubusercontent.com/65306153/144051879-6e6a21ca-2673-4e16-971c-0846d969d4f6.png)
+Ici nous pouvons voir la méthode HTTP (POST), la réponse obtenue (201), l'URL...
+
+<br/><br/>
+
+Maintenant nous pouvons essayer de créer un participant à la réunion :
+![image](https://user-images.githubusercontent.com/65306153/144052754-ddd26b4f-bec5-4c68-94ac-92f69fbc1f86.png)
+
+<br/>
+
+Nous cliquons pour participer et nous remplissons les champs, puis nous soumettons :
+
+<br/>
+
+![image](https://user-images.githubusercontent.com/65306153/144053102-4dcc1bc8-0e55-4c2f-86a2-c7ab09cb27f9.png)
+
+<br/><br/><br/>
+Maintenant nous avons de nouvelles traces dans Jaeger (2 GET et 1 POST) qui vont servir à créer le participant :
+![image](https://user-images.githubusercontent.com/65306153/144053270-9489cfb5-aceb-4e08-85c9-71aa9a812c0d.png)
+
+Comme pour l'ancienne trace nous pouvons cliquer pour avoir toutes les informations sur ces requètes.
 
 
-### Monitoring et logging de l'application doodle 
-Obervons maintenant les résultats proposés par l'outil :
 
