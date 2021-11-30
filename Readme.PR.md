@@ -106,6 +106,88 @@ jobs:
     ...
 ```
 
-### GitHub Action :  AngularBuildAction
+### GitHub Action :  BuildAction
 
-TODO
+The [action](.github/workflows/BuildAction.yml) we have done is intended to be triggered at each pull request made by dependabot. It will check if the project is still building and will automatically merge the pull request if it is the case.
+
+To perform this action we have created 2 jobs that will run sequentially. 
+
+#### Job : build
+
+The role of the first job `build` is to check if the project is still building.
+
+```yml
+...
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    if: contains(github.event.pull_request.labels.*.name, 'dependabot')
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+        
+      - name: npm install
+        if: contains(github.event.pull_request.labels.*.name, 'javascript')
+        working-directory: ./front
+        run: npm install
+        
+      - name: npm run build
+        if: contains(github.event.pull_request.labels.*.name, 'javascript')
+        working-directory: ./front
+        run: npm run build
+        
+      - name: Maven Install
+        if: contains(github.event.pull_request.labels.*.name, 'java')
+        working-directory: ./api
+        run: mvn install
+        
+      - name: Maven Build
+        if: contains(github.event.pull_request.labels.*.name, 'java')
+        working-directory: ./api
+        run: mvn compile
+...
+```
+In order to build only the project concern by the update we take a look to the labels of the project. If the labels contain `java` we perform the maven build in the right directory. Otherwise we check if the labels contain `javascript` to perform the nodeJs build.
+
+To check the label we use the key word `if` with the combination of the fonction `contains`.
+
+```yml
+- name: npm install
+        if: contains(github.event.pull_request.labels.*.name, 'javascript')
+        working-directory: ./front
+        run: npm install
+```
+
+#### Job : merge
+
+The role of the second job `merge` is to merge the branch if the job `build` is a succes.
+
+To perform a merge we decide to use an action enable in the market place of GitHub. This action enable us to merge the pull request. We just need the number of the pull request. 
+
+```yml
+...
+merge:
+    needs: build
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    if: contains(github.event.pull_request.labels.*.name, 'dependabot')
+    steps:
+    - name: Display the PR number
+      run: echo ${{ github.event.number }}
+    
+    - name: merge-pr
+      # You may pin to the exact commit or the version.
+      # uses: nbrugger-tgm/merge-pr-action@80dca9937195f2bb2413eb693fe25614fadb0385
+      uses: nbrugger-tgm/merge-pr-action@v0.2.2
+      with:
+        # github token
+        token: ${{ secrets.GITHUB_TOKEN }}
+        # merge method (squash, merge or rebase)
+        # pull request number to merge
+        pull_request: ${{ github.event.number }}
+```
+
+
+
