@@ -100,6 +100,7 @@ Nous pouvons cliquer sur sa trace pour en apprendre davantage.
 
 ![image](https://user-images.githubusercontent.com/65306153/144051879-6e6a21ca-2673-4e16-971c-0846d969d4f6.png)
 Ici nous pouvons voir la méthode HTTP (POST), la réponse obtenue (201), l'URL...
+Dans le nom de la trace nous pouvons également voir quelle méthode de quelle classe a été appelée.
 
 <br/><br/>
 
