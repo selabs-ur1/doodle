@@ -1,18 +1,9 @@
-# Tutoriel Monitoring de notre application doodle
+# Tutoriel Monitoring de l'application doodle avec Jaeger & OpenTracing
 
 ## Pré-requis
-Pour pouvoir commencer , on démarre l'application doodle en exécutant :
--dans le dossier api : 
-1. docker-compose up -d
-2. ./mvnw compile quarkus:dev
 
--dans le dossier front : 
-1. npm install
-2. npm start 
-
-Et le lien : http://localhost:4200/ nous donne accès à l'interface de doodle.
  
-## Open-Tracing et Jaeger
+## Schéma du fonctionnement de Jaeger
 
 ![image](https://user-images.githubusercontent.com/57901216/143829912-ed348025-33a3-4936-9dd6-44eb8e1956da.png)
 
@@ -25,45 +16,76 @@ Une explication des différents composants de ce qu'on ajoutera pour faire du mo
 * Span – L'unité logique de travail dans Jaeger, qui comprend le nom, l'heure de début et la durée de l'opération.
 * Trace – La façon dont Jaeger présente les demandes d'exécution. Une trace est composée d'au moins une plage.
 
+<br/>
 
-Installation de OpenTracing & Jaeger :
-Ajout des dépendances dans le fichier pom.xml dans api java avec :
-![image](https://user-images.githubusercontent.com/57901216/143852893-f7547914-a084-4f38-942c-5aa9a45daf97.png) 
+## Installation de Jaeger & OpenTracing :
+### Ajout d'une dépendance dans le pom.xml de doodle/api :
+```xml
+<dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-smallrye-opentracing</artifactId>
+</dependency>
+```
+<br/>
 
-pour avoir
+### Configuration de Jaeger dans notre back
+Dans le : **src/main/resources/application.yml**, nous ajoutons ceci :
 
-![image](https://user-images.githubusercontent.com/57901216/143853629-1008448d-fff4-4b3d-ac25-d4bdac79a390.png)
-
-### Créer la configuration
-Dans le : src/main/resources/application.properties , nous ajoutons ceci :
-
-
-![image](https://user-images.githubusercontent.com/57901216/143854807-3c2c5973-85cd-4299-96b5-2e424c77b2dc.png)
-* Pour le premier paramètre, si la propriété quarkus.jaeger.service-name n'est pas fournie, un traceur « no-op » sera configuré, ce qui entraînera l'absence de données de traçage signalées au backend.
-* De suite, une configuration d'un échantillonneur constant est utilisé.
-* En troisième lieu, un échantillonnage de toutes les demandes. On peut régler le sampler-param quelque part entre 0 et 1, par ex. 0,50
-* Et finalement, nous ajoutons des ID de trace dans le message de journal.
-
+```yml
+quarkus:
+  jaeger:
+    service-name: doodle
+    sampler-type: const
+    sampler-param: 1
+  log:
+    console:
+      format: '%d{HH:mm:ss} %-5p traceId=%X{traceId}, parentId=%X{parentId}, spanId=%X{spanId}, sampled=%X{sampled} [%c{2.}] (%t) %s%e%n'
+```
 
 
-De ce fait , exécuter dans un powershell
-docker run -d -p 5775:5775/udp -p 16686:16686 jaegertracing/all-in-one:latest 
 
-Finalement aller sur : http://localhost:16686/ 
-pour ouvrir l’UI de Jaeger
+* Pour le premier paramètre, si le paramètre `service-name` n'est pas fournie, un traceur « no-op » sera configuré, ce qui entraînera l'absence de données de traçage signalées au backend.
+* Deuxièmenment, un échantillonneur constant est utilisé.
+* Troisièmement, `sampler-param` sert à régler l'échantillonage des requètes. Ici il y a un échantillonnage de toutes les requètes car il est à 1. Ce paramètre peut aller de 0 à 1. 
+* Et finalement, nous ajoutons des ID de trace dans le message de log.
 
-## Visualisation du monitoring et du logging
+<br/><br/>
 
-### Runner l'application de l'outil
-La première étape est :
+## Lancement de Jaeger
 
-![image](https://user-images.githubusercontent.com/57901216/143883254-5921c644-a1e9-46da-a661-94879dba6f71.png)
+Pour lancer Jaeger (en docker) exécuter simplement :
+```sh
+$ docker run -p 5775:5775/udp -p 6831:6831/udp -p 6832:6832/udp -p 5778:5778 -p 16686:16686 -p 14268:14268 jaegertracing/all-in-one:latest
+```
 
-Et comme nous avons utilisé , le fichier 'application.properties', nous exécutons :
+Finalement aller sur : http://localhost:16686/ pour ouvrir l’UI de Jaeger
 
-![image](https://user-images.githubusercontent.com/57901216/143883423-3d00f0c0-d71a-426d-8ed6-8ee2e3d97c0d.png)
+<br/>
 
-Sur le port , 16686 donc à l'adresse : localhost:16686 , nous avons donc l'interface graphique de Jaeger :
+## Lancement de l'application pour faire des tests
+Une fois que nous avons bien configuré et démarré Jaeger il nous faut lancer l'application:
+
+
+* **Dans le dossier doodle/api lancer** :
+```sh
+$ docker-compose up -d
+``` 
+**puis,**
+```sh
+$ ./mvnw compile quarkus:dev
+``` 
+<br/>
+
+* **Dans le dossier doodle/front lancer** :
+```sh
+$ npm install
+``` 
+**puis,**
+```sh
+$ npm start
+``` 
+## Monitoring de l'application
+A l'adresse :  http://localhost:16686/, nous avons donc l'interface graphique de Jaeger :
 ![image](https://user-images.githubusercontent.com/57901216/143893858-488e957b-af61-47e8-9c8e-4a2802322466.png)
 
 
