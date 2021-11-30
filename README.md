@@ -13,7 +13,7 @@ Setting up Javafuzz is blatantly simple.
 The first step is to install Javafuzz by adding its [dependency](https://gitlab.com/gitlab-org/security-products/analyzers/fuzzers/javafuzz#installing) to the *pom.xml*.
 
 The following step is to implement a function called [Fuzz Target](https://gitlab.com/gitlab-org/security-products/analyzers/fuzzers/javafuzz#fuzz-target) which will be called by Javafuzz in an infinite loop with random input data. In this tutorial, the fuzz target looks like :
-```
+```Java
 public class JavafuzzTestExample extends AbstractFuzzTarget{
 
 	/**
@@ -54,10 +54,12 @@ MAVEN_OPTS="-javaagent:jacocoagent.jar" mvn javafuzz:fuzz -DclassName=fr.istic.t
 We obtain the following ouput:
 ![Alt Image text](api/src/main/resources/images/javafuzz_local_result.png?raw=true "Javafuzz in local ouput")
 
+We can see that the test detect bad input data such as corrupt URIs.
+
 #### Javafuzz in pipeline
 Fuzzing works out best if done continuously. As projects evolve,fuzz testing should be apply to the most recent versions of them in order to identify revisions when a regression was introduced as well as detect bug fixes and the corresponding revision.
 In order to run the fuzzing in a pipeline, we set up a pipeline on github using [Github Actions](https://github.com/features/actions). We inserted the command to run javafuzz into the [pipeline](https://github.com/KomInc/doodle/blob/oss-fuzz-tuto/.github/workflows/ci.yml) file as :
-```
+```bash
 - name: Fuzzing with Javafuzz
       working-directory: ./api
       run: |
@@ -76,7 +78,7 @@ Every push or pull request triggers our pipeline and the Javafuzz test is execut
 
 ## Some fuzzing tools
 
-. [*libFuzz*]() : Binary fuzzing tool
-. [*AFL*]() : Binary fuzzing tool
-. [*Zest*]() : Structure-aware fuzzing tool; 
+. [*libFuzz*]() : Binary fuzzing tool\
+. [*AFL*]() : Binary fuzzing tool\
+. [*Zest*]() : Structure-aware fuzzing tool\ 
 . [*Oss-Fuzz*](https://github.com/google/oss-fuzz) : it is a Google project for fuzzing of open-souce software; for a project to use Oss-Fuzz, it has to be accepted by Google's team and be a large-scale open-source project and widely used within the open-source community. For each project integrated with Oss-Fuzz, Google give a amount of money ($500 - $1000) to the developers.
