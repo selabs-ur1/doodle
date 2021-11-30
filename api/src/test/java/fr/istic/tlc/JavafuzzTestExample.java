@@ -12,6 +12,19 @@ import com.gitlab.javafuzz.core.AbstractFuzzTarget;
 
 public class JavafuzzTestExample extends AbstractFuzzTarget{
 
+    public void fuzz(byte[] data) {
+
+        String[] queries = parseData(data);
+
+        if (queries.length > 0 && queries[0].equals("GET"))
+            testGet(queries);
+        else if (queries.length > 0 && queries[0].equals("POST"))
+            testPost(queries);
+        else if (queries.length > 0 && queries[0].equals("PUT"))
+            testPut(queries);
+        else if (queries.length > 0 && queries[0].equals("DELETE"))
+            testDelete(queries);
+    }
     
     public String[] parseData(byte[] data) {
 
@@ -112,20 +125,5 @@ public class JavafuzzTestExample extends AbstractFuzzTarget{
 
     }
 
-    public void fuzz(byte[] data) {
-
-        String[] queries = parseData(data);
-
-        if (queries.length > 0 && queries[0].equals("GET"))
-            testGet(queries);
-        else if (queries.length > 0 && queries[0].equals("POST"))
-            testPost(queries);
-        else if (queries.length > 0 && queries[0].equals("PUT"))
-            testPut(queries);
-        else if (queries.length > 0 && queries[0].equals("DELETE"))
-            testDelete(queries);
-    }
-
-    
 
 }
