@@ -16,11 +16,20 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import org.jboss.logging.Logger;
+
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
+@Path("/doodle_poll")
 public class Poll {
+
+    private static final Logger LOG = Logger.getLogger(Poll.class);
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -62,6 +71,13 @@ public class Poll {
     private String padURL;
 
     public Poll(){}
+
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String hello() {
+        LOG.info("doodle_poll"); 
+        return "doodle_poll";
+    }
 
     public Poll(String title, String location, String description, boolean has_meal, List<Choice> pollChoices) {
         this.title = title;
