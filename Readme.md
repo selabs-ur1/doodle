@@ -1,31 +1,125 @@
-# Remote meetings planning
+# Tutoriel Monitoring de l'application doodle avec Jaeger & OpenTracing
+ 
+## Schéma du fonctionnement de Jaeger
 
-This project is used in a course on the *ops* part at the [University of Rennes](https://www.univ-rennes1.fr/), France. It is a kind of doodle clone developed in so-called "cloud-native" technologies in order to allow students to work on a continuous deployment chain in a containerized environment. Among the feature, the application automatically initializes a pad for the meeting and a chat room for the meeting participants.
+![image](https://user-images.githubusercontent.com/57901216/143829912-ed348025-33a3-4936-9dd6-44eb8e1956da.png)
 
-- The [back](https://github.com/barais/doodlestudent/tree/main/api) is developed using the [quarkus.io](https://quarkus.io/) framework. 
-- The [front](https://github.com/barais/doodlestudent/tree/main/front) is developed in [angular](https://angular.io/) using the [primeng](https://www.primefaces.org/primeng/)  angular UI component library and the [fullcalendar](https://fullcalendar.io/) graphical component.
+Une explication des différents composants de ce qu'on ajoutera pour faire du monitoring
+* Agent – Un daemon réseau qui écoute les intervalles envoyés via le DAO de l'application.
+* Client – Le composant qui implémente l'API OpenTracing pour le traçage distribué.
+* Collecteur – Le composant qui reçoit les étendues et les ajoute dans une file d'attente à traiter.
+* Console – Une interface utilisateur qui permet aux utilisateurs de visualiser leurs données de traçage distribuées.
+* Requête – Un service qui récupère les traces du stockage.
+* Span – L'unité logique de travail dans Jaeger, qui comprend le nom, l'heure de début et la durée de l'opération.
+* Trace – La façon dont Jaeger présente les demandes d'exécution. Une trace est composée d'au moins une plage.
 
-A demo of the application is available [here](https://doodle.diverse-team.fr/).
+<br/>
 
-Three videos (in french) are available. They present:
-- the [main application feature](https://drive.google.com/file/d/1GQbdgq2CHcddTlcoHqM5Zc8Dw5o_eeLg/preview), 
-- its [architecture](https://drive.google.com/file/d/1l5UAsU5_q-oshwEW6edZ4UvQjN3-tzwi/preview) 
-- and a [short code review](https://drive.google.com/file/d/1jxYNfJdtd4r_pDbOthra360ei8Z17tX_/preview) .
+## Installation de Jaeger & OpenTracing :
+### Ajout d'une dépendance dans le pom.xml de doodle/api :
+```xml
+<dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-smallrye-opentracing</artifactId>
+</dependency>
+```
+<br/>
 
-For french native speaker that wants to follow the course. The course web page is available [here](https://hackmd.diverse-team.fr/s/SJqu5DjSD).
+### Configuration de Jaeger dans notre back
+Dans le : **src/main/resources/application.yml**, nous ajoutons ceci :
 
-## Requirments
+```yml
+quarkus:
+  jaeger:
+    service-name: doodle
+    sampler-type: const
+    sampler-param: 1
+  log:
+    console:
+      format: '%d{HH:mm:ss} %-5p traceId=%X{traceId}, parentId=%X{parentId}, spanId=%X{spanId}, sampled=%X{sampled} [%c{2.}] (%t) %s%e%n'
+```
 
-Verify that these are installed on your computer :
 
-- Java (JDK) 11+, e.g. [Oracle JSE](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html) (with the JAVA_HOME environment variable correctly set)
-- [Maven](http://maven.apache.org/install.html)
-- [Git](https://git-scm.com/download/)
-- [Docker](https://docs.docker.com/engine/install/) (at least version 19.03.0, 20.10 preferred)
-- Docker compose ([Compose V2](https://docs.docker.com/compose/cli-command/#installing-compose-v2) preferred, should be able to run 3.8 compose files)
-- [Node](https://nodejs.org/en/) at least version 16
-- npm at least version 8 (installed with Node)
-- A Java IDE (Eclipse, IntelliJ IDEA, NetBeans, VS Code, Xcode, etc.)
 
-If you are on Windows, Docker can not mount files outside your user folder (Unless an absolute path is provided).
-Please, clone the doodle in the user folder or change the compose file to correctly mount the etherpad APIKEY.txt
+* Pour le premier paramètre, si le paramètre `service-name` n'est pas fournie, un traceur « no-op » sera configuré, ce qui entraînera l'absence de données de traçage signalées au backend.
+* Deuxièmenment, un échantillonneur constant est utilisé.
+* Troisièmement, `sampler-param` sert à régler l'échantillonage des requètes. Ici il y a un échantillonnage de toutes les requètes car il est à 1. Ce paramètre peut aller de 0 à 1. 
+* Et finalement, nous ajoutons des ID de trace dans le message de log.
+
+<br/><br/>
+
+## Lancement de Jaeger
+
+Pour lancer Jaeger (en docker) exécuter simplement :
+```sh
+$ docker run -p 5775:5775/udp -p 6831:6831/udp -p 6832:6832/udp -p 5778:5778 -p 16686:16686 -p 14268:14268 jaegertracing/all-in-one:latest
+```
+
+Finalement aller sur : http://localhost:16686/ pour ouvrir l’UI de Jaeger
+
+<br/>
+
+## Lancement de l'application pour faire des tests
+Une fois que nous avons bien configuré et démarré Jaeger il nous faut lancer l'application:
+
+
+* **Dans le dossier doodle/api lancer** :
+```sh
+$ docker-compose up -d
+``` 
+**puis,**
+```sh
+$ ./mvnw compile quarkus:dev
+``` 
+<br/>
+
+* **Dans le dossier doodle/front lancer** :
+```sh
+$ npm install
+``` 
+**puis,**
+```sh
+$ npm start
+``` 
+## Monitoring de l'application
+A l'adresse :  http://localhost:16686/, nous avons donc l'interface graphique de Jaeger :
+![image](https://user-images.githubusercontent.com/65306153/144050178-4005ca68-4d8e-4037-963a-6012bb742c08.png)
+
+### Pour commencer, nous pouvons créer un sondage sur l'application et voir le résultat sur Jaeger :
+Création de notre poll :
+![image](https://user-images.githubusercontent.com/65306153/144050515-70dabaf7-032e-4956-8163-fa124bb97a29.png)
+
+<br/>
+
+Résultat sur Jaeger :
+![image](https://user-images.githubusercontent.com/65306153/144050920-501d1183-7475-4708-8849-112799a59980.png)
+Le point en haut nous indique l'heure à laquelle la requète a été faite ainsi que sa durée (temps jusqu'à réponse).
+Nous pouvons cliquer sur sa trace pour en apprendre davantage.
+
+<br/>
+
+![image](https://user-images.githubusercontent.com/65306153/144051879-6e6a21ca-2673-4e16-971c-0846d969d4f6.png)
+Ici nous pouvons voir la méthode HTTP (POST), la réponse obtenue (201), l'URL...
+Dans le nom de la trace nous pouvons également voir quelle méthode de quelle classe a été appelée.
+
+<br/><br/>
+
+Maintenant nous pouvons essayer de créer un participant à la réunion :
+![image](https://user-images.githubusercontent.com/65306153/144052754-ddd26b4f-bec5-4c68-94ac-92f69fbc1f86.png)
+
+<br/>
+
+Nous cliquons pour participer et nous remplissons les champs, puis nous soumettons :
+
+<br/>
+
+![image](https://user-images.githubusercontent.com/65306153/144053102-4dcc1bc8-0e55-4c2f-86a2-c7ab09cb27f9.png)
+
+<br/><br/><br/>
+Maintenant nous avons de nouvelles traces dans Jaeger (2 GET et 1 POST) qui vont servir à créer le participant :
+![image](https://user-images.githubusercontent.com/65306153/144053270-9489cfb5-aceb-4e08-85c9-71aa9a812c0d.png)
+
+Comme pour l'ancienne trace nous pouvons cliquer pour avoir toutes les informations sur ces requètes.
+
+
+
