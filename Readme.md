@@ -1,4 +1,4 @@
-# Monitoring Tutoriel of doodle application with Jaeger & OpenTracing
+# Monitoring Tutorial of doodle application with Jaeger & OpenTracing
  
 ## Diagram of how Jaeger works
 
@@ -25,7 +25,7 @@ An explanation of the different components of what we will add to do monitoring
 ```
 <br/>
 
-### Configuration de Jaeger dans notre back
+### Configuration of Jaeger in our back-end :
 In the : **src/main/resources/application.yml**, we add this :
 
 ```yml
