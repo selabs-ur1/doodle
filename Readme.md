@@ -1,4 +1,4 @@
-# Monitoring Tutorial of doodle application with Jaeger & OpenTracing
+# Monitoring tutorial of doodle application with Jaeger & OpenTracing
  
 ## Diagram of how Jaeger works
 
