@@ -69,7 +69,7 @@ In order to run the fuzzing in a pipeline, we set up a pipeline on github using 
 ```
 
 Every push or pull request triggers our pipeline and the Javafuzz test is executed and the results can be seen in the [Actions](https://github.com/KomInc/doodle/actions) tab. The fuzzing with javafuzz in a pipeline ouputs look like :
-*Insert file link*
+![Alt Image text](api/src/main/resources/images/javafuzz_pipeline.PNG?raw=true "Javafuzz in local ouput")
 
 ## Implementing fuzzing with JQF
 [*JQF*](https://github.com/rohanpadhye/jqf#what-is-structure-aware-fuzzing)
@@ -80,5 +80,5 @@ Every push or pull request triggers our pipeline and the Javafuzz test is execut
 
 . [*libFuzz*]() : Binary fuzzing tool\
 . [*AFL*]() : Binary fuzzing tool\
-. [*Zest*]() : Structure-aware fuzzing tool\ 
+. [*Zest*]() : Structure-aware fuzzing tool\
 . [*Oss-Fuzz*](https://github.com/google/oss-fuzz) : it is a Google project for fuzzing of open-souce software; for a project to use Oss-Fuzz, it has to be accepted by Google's team and be a large-scale open-source project and widely used within the open-source community. For each project integrated with Oss-Fuzz, Google give a amount of money ($500 - $1000) to the developers.
