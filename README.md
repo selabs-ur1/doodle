@@ -69,7 +69,7 @@ In order to run the fuzzing in a pipeline, we set up a pipeline on github using 
 ```
 
 Every push or pull request triggers our pipeline and the Javafuzz test is executed and the results can be seen in the [Actions](https://github.com/KomInc/doodle/actions) tab. The fuzzing with javafuzz in a pipeline ouputs look like :
-![Alt Image text](api/src/main/resources/images/javafuzz_pipeline.PNG?raw=true "Javafuzz in local ouput")
+![Alt Image text](api/src/main/resources/images/javafuzz_pipeline.png?raw=true "Javafuzz in pipeline")
 
 ## Implementing fuzzing with JQF
 [*JQF*](https://github.com/rohanpadhye/jqf#what-is-structure-aware-fuzzing)
