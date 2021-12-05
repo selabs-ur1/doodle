@@ -5,8 +5,8 @@
 There are 2 type of fuzzing tools such as binary oriented tools and Structure-aware fuzzing tool. [the main difference with binary fuzzing tool such as libFuzz is that structure-aware fuzzing tools leverage domain-specific knowledge of the input format to produce inputs that are syntactically valid by construction meanwhile binary fuzzing tools like AFL and libFuzzer treat the input as a sequence of bytes. If the test program expects highly structured inputs, such as XML documents or JavaScript programs, then mutating byte-arrays often results in syntactically invalid inputs; the core of the test program remains untested.](https://github.com/rohanpadhye/jqf#what-is-structure-aware-fuzzing) 
 
 ## Implementing fuzzing with Javafuzz
-[*JavaFuzz*](https://gitlab.com/gitlab-org/security-products/analyzers/fuzzers/javafuzz) is a binary oriented, coverage-guided fuzzer for testing Java packages.
-This tutorial consists in installing Javafuzz, setting it up and use it to test the doole api by using corrupt HTTP requests as input data.
+[**JavaFuzz**](https://gitlab.com/gitlab-org/security-products/analyzers/fuzzers/javafuzz) is a binary oriented, coverage-guided fuzzer for testing Java packages. It uses [**Jacoco**](https://www.jacoco.org/jacoco/) as coverage tool.
+This tutorial consists in installing Javafuzz, setting it up and use it to test the **doodle api** by using corrupt HTTP requests as input data.
 
 ### Usage of Javafuzz
 Setting up Javafuzz is blatantly simple.
@@ -46,7 +46,7 @@ Javafuzzer also have a optional parameter known as [Ddir](https://gitlab.com/git
 
 This tutorial being in a Devops course, we decided to run the javafuzz test locally and in a pipeline.
 
-#### Javafuzz in local
+#### Javafuzz in local environment
 We run the test with the following command:
 ```
 MAVEN_OPTS="-javaagent:jacocoagent.jar" mvn javafuzz:fuzz -DclassName=fr.istic.tlc.JavafuzzExample -Ddirs=CORPUS_DIR
@@ -71,8 +71,20 @@ In order to run the fuzzing in a pipeline, we set up a pipeline on github using 
 Every push or pull request triggers our pipeline and the Javafuzz test is executed and the results can be seen in the [Actions](https://github.com/KomInc/doodle/actions) tab. The fuzzing with javafuzz in a pipeline ouputs look like :
 ![Alt Image text](api/src/main/resources/images/javafuzz_pipeline.PNG?raw=true "Javafuzz in pipeline")
 
-## Implementing fuzzing with JQF
-[*JQF*](https://github.com/rohanpadhye/jqf#what-is-structure-aware-fuzzing)
+## Implementing fuzzing with JQF and Zest
+[**JQF**](https://github.com/rohanpadhye/jqf#what-is-structure-aware-fuzzing) is a structure-aware  fuzzing tool.
+> JQF is a feedback-directed fuzz testing platform for Java (think: AFL/LibFuzzer but for JVM bytecode). JQF uses the abstraction of property-based testing, which makes it nice to write fuzz drivers as parameteric JUnit test methods. JQF is built on top of [junit-quickcheck](https://github.com/pholser/junit-quickcheck). JQF enables running junit-quickcheck style parameterized unit tests with the power of **coverage-guided** fuzzing algorithms such as **Zest**.
+
+[**Zest**](https://rohan.padhye.org/files/zest-issta19.pdf)
+> [Zest](https://rohan.padhye.org/files/zest-issta19.pdf) is an algorithm that biases coverage-guided fuzzing towards producing semantically valid inputs; that is, inputs that satisfy structural and semantic properties while maximizing code coverage. Zest's goal is to find deep semantic bugs that cannot be found by conventional fuzzing tools, which mostly stress error-handling logic only. By default, JQF runs Zest via the simple command: ```mvn jqf:fuzz```. 
+
+### Usage of JQF
+
+
+### JQF in local environment
+
+
+### JQF in pipeline
 
 
 ### JFQ credits
@@ -98,3 +110,4 @@ Every push or pull request triggers our pipeline and the Javafuzz test is execut
 . [*AFL*]() : Binary fuzzing tool\
 . [*Zest*]() : Structure-aware fuzzing tool\
 . [*Oss-Fuzz*](https://github.com/google/oss-fuzz) : it is a Google project for fuzzing of open-souce software; for a project to use Oss-Fuzz, it has to be accepted by Google's team and be a large-scale open-source project and widely used within the open-source community. For each project integrated with Oss-Fuzz, Google give a amount of money ($500 - $1000) to the developers.
+. [**fuzzing Book**](https://www.fuzzingbook.org/)

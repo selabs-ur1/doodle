@@ -36,6 +36,6 @@ jobs:
     #     wget -O jacocoagent.jar https://gitlab.com/gitlab-org/security-products/analyzers/fuzzers/javafuzz/-/raw/master/javafuzz-maven-plugin/src/main/resources/jacocoagent-exp.jar
     #     MAVEN_OPTS="-javaagent:jacocoagent.jar" mvn javafuzz:fuzz -DclassName=fr.istic.tlc.JavafuzzTestExample -Ddirs=CORPUS_DIR
 
-    - name: Fuzzing with JQF and Zest
-      working-directory: ./api
-      run: mvn jqf:fuzz -Dclass=fr.istic.tlc.JQFTest.JQFTestExample -Dmethod=fuzzTest -Dtime=5s
+    # - name: Fuzzing with JQF and Zest
+    #   working-directory: ./api
+    #   run: mvn jqf:fuzz -Dclass=fr.istic.tlc.JQFTest.JQFTestExample -Dmethod=fuzzTest -Dtime=5s
