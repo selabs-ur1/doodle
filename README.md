@@ -74,6 +74,22 @@ Every push or pull request triggers our pipeline and the Javafuzz test is execut
 ## Implementing fuzzing with JQF
 [*JQF*](https://github.com/rohanpadhye/jqf#what-is-structure-aware-fuzzing)
 
+
+### JFQ credits
+#### Zest Research Paper
+
+[ISSTA'19 paper]:
+
+> Rohan Padhye, Caroline Lemieux, Koushik Sen, Mike Papadakis, and Yves Le Traon. 2019. **Semantic Fuzzing with Zest**. In Proceedings of the 28th ACM SIGSOFT International Symposium on Software Testing and Analysis (ISSTA’19), July 15–19, 2019, Beijing, China. ACM, New York, NY, USA, 12 pages. https://doi.org/10.1145/3293882.3330576
+
+
+#### JQF Tool Paper
+
+[ISSTA'19 tool paper]:
+
+> Rohan Padhye, Caroline Lemieux, and Koushik Sen. 2019. **JQF: Coverage-Guided Property-Based Testing in Java**. In Proceedings of the 28th ACM SIGSOFT International Symposium on Software Testing and Analysis (ISSTA ’19), July 15–19, 2019, Beijing, China. ACM, New York, NY, USA, 4 pages. https://doi.org/10.1145/3293882.3339002
+
+
 ## Implementing fuzzing with RAFT
 
 ## Some fuzzing tools

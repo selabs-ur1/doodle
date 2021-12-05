@@ -40,7 +40,7 @@ public class JavafuzzTestExample extends AbstractFuzzTarget{
         return outputs;
     }
 
-    public void testGet(String[] queries) {
+    public static void testGet(String[] queries) {
 
         String link = (queries.length > 1) ? queries[1] : "";
 
@@ -61,7 +61,7 @@ public class JavafuzzTestExample extends AbstractFuzzTarget{
 
     }
 
-    public void testPost(String[] queries) {
+    public static void testPost(String[] queries) {
 
         String link = (queries.length > 1) ? queries[1] : "";
         String inputData = (queries.length > 2) ? queries[2] : "";
@@ -83,7 +83,7 @@ public class JavafuzzTestExample extends AbstractFuzzTarget{
 
     }
 
-    public void testPut(String[] queries) {
+    public static void testPut(String[] queries) {
 
         String link = (queries.length > 1) ? queries[1] : "";
         String inputData = (queries.length > 2) ? queries[2] : "";
@@ -105,7 +105,7 @@ public class JavafuzzTestExample extends AbstractFuzzTarget{
 
     }
 
-    public void testDelete(String[] queries) {
+    public static void testDelete(String[] queries) {
 
         String link = (queries.length > 1) ? queries[1] : "";
 
