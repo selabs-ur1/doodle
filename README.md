@@ -10,9 +10,11 @@ There are 2 type of fuzzing tools such as binary oriented tools and Structure-aw
 This tutorial consists in installing Javafuzz, setting it up and use it to test the **doodle api** by using corrupt HTTP requests as input data.
 
 ### Usage of Javafuzz
+#### Step 1
 Setting up Javafuzz is blatantly simple.
-The first step is to install Javafuzz by adding its [dependency](https://gitlab.com/gitlab-org/security-products/analyzers/fuzzers/javafuzz#installing) to the *pom.xml*.
+We install Javafuzz by adding its [dependency](https://gitlab.com/gitlab-org/security-products/analyzers/fuzzers/javafuzz#installing) to the *pom.xml*.
 
+#### Step 2
 The following step is to implement a function called [Fuzz Target](https://gitlab.com/gitlab-org/security-products/analyzers/fuzzers/javafuzz#fuzz-target) which will be called by Javafuzz in an infinite loop with random input data. In this tutorial, the fuzz target looks like :
 ```Java
 public class JavafuzzTestExample extends AbstractFuzzTarget{
@@ -36,6 +38,7 @@ public class JavafuzzTestExample extends AbstractFuzzTarget{
     }
 ```
 
+#### Step 3
 The final step is to execute the following [commands](https://gitlab.com/gitlab-org/security-products/analyzers/fuzzers/javafuzz#running) to start the test :
 ```
 mvn install
@@ -80,6 +83,76 @@ Every push or pull request triggers our pipeline and the Javafuzz test is execut
 > [Zest](https://rohan.padhye.org/files/zest-issta19.pdf) is an algorithm that biases coverage-guided fuzzing towards producing semantically valid inputs; that is, inputs that satisfy structural and semantic properties while maximizing code coverage. Zest's goal is to find deep semantic bugs that cannot be found by conventional fuzzing tools, which mostly stress error-handling logic only. By default, JQF runs Zest via the simple command: ```mvn jqf:fuzz```. 
 
 ### Usage of JQF
+This tutorial consists in installing JQF, setting it up and use it to test the **doodle api** by using corrupt HTTP requests as input data.
+
+#### Step 1
+The first step consists in adding the necessary dependancies and plugins to the *pom.xml* file.
+We install JQF by adding its dependency to the *pom.xml*.
+```
+<!-- JQF: test dependency for @Fuzz annotation -->
+<dependency>
+	<groupId>edu.berkeley.cs.jqf</groupId>
+	<artifactId>jqf-fuzz</artifactId>
+	<!-- confirm the latest version at: https://mvnrepository.com/artifact/edu.berkeley.cs.jqf -->
+	<version>1.7</version>
+	<scope>test</scope>
+</dependency>
+```
+Then, we add the *JQF plugin* to the *pom.xml* in order to use the command ```mvn jqf:fuzz```.
+```
+<!-- The JQF plugin, for invoking the command `mvn jqf:fuzz` -->
+<plugin>
+	<groupId>edu.berkeley.cs.jqf</groupId>
+	<artifactId>jqf-maven-plugin</artifactId>
+	<!-- confirm the latest version at: https://mvnrepository.com/artifact/edu.berkeley.cs.jqf -->
+	<version>1.3</version>
+</plugin>
+```
+We also need to add to the *pom.xml* the *junit-quickchec-generator* which purpose is to generate random inputs.
+```
+<!-- JUnit-QuickCheck: API to write generators -->
+<dependency>
+	<groupId>com.pholser</groupId>
+	<artifactId>junit-quickcheck-generators</artifactId>
+	<version>1.0</version>
+	<scope>test</scope>
+</dependency>
+```
+In this tuto, we use as input string queries following the pattern : *HTTP_REQUEST_METHOD LINK POSSIBLE_DATA*; Hence , we use the [Generex](https://github.com/mifmif/Generex) library which goal is to generate multiple string matching a regular expression. In order to use this library, we add the following library to the *pom.xml*.
+```
+<!-- https://mvnrepository.com/artifact/com.github.mifmif/generex -->
+<dependency>
+	<groupId>com.github.mifmif</groupId>
+	<artifactId>generex</artifactId>
+	<version>1.0.1</version>
+</dependency>
+```
+#### Step 2
+The following step is to implement a [generator class](https://github.com/rohanpadhye/JQF/wiki/Fuzzing-with-Zest#step-2-write-an-input-generator):
+> JQF leverages the junit-quickcheck framework to produce structured inputs. In order to generate inputs for type T, we need a class that extends Generator<T>. Such a subclass need only provide a method that can produce random instances of T using a provided source of randomness.
+The following is our generator for String objects matching our query pattern, in the file [JQFTestQueryGenerator.java](api/src/test/java/fr/istic/tlc/JQFTest/JQFTestQueryGenerator.java):
+```
+public class JQFTestQueryGenerator extends Generator<String> {
+
+    public JQFTestQueryGenerator() {
+        super(String.class);
+    }
+
+    @Override
+    public String generate(SourceOfRandomness r, GenerationStatus s) {
+
+        Generex regex = new Generex("(GET|POST|PUT|DELETE) https?://localhost://[0-9]{4}/([a-zA-Z0-9]{1,10}/){1,5}[1-9]*");
+            
+        return regex.random(0, s.size());
+    }
+
+}
+```
+
+#### Step 3
+
+
+#### Step 4
 
 
 ### JQF in local environment
