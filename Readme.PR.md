@@ -192,7 +192,7 @@ merge:
 ## Development of a Github bot with Probot
 
 This second part will describe how to build a Github bot quickly using Probot and the Github APIs.
-As an example, the bot we created anterior to the tutorial is [available here](https://github.com/apps/probot-semantic-pr).
+As an example, the bot we created anterior to the tutorial is [available here](https://github.com/apps/probot-approved-pr).
 
 ### Starting template
 
