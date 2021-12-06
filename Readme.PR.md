@@ -3,7 +3,7 @@
 Software bots are simple or complex computer programs designed to do specific actions, such as automating repetitive tasks or simulating human users, among others.
 
 In this pull request we had the opportunity to manipulate different bots. In a first part we will show you how to use dependabot. Dependabot is a bot integrated in github, in charge of managing the updates of the project dependencies. 
-<br>Then in a second part we will show you how to create a bot. This new bot will automatically merge the pull request if 2 reviewers validate the pull request.
+<br>Then in a second part we will show you how to create a bot. This new bot will automatically merge the pull request if 2 reviewers approve the pull request.
 
 ## Dependabot and Continious Integration (C.I)
 ### Dependabot
@@ -189,5 +189,61 @@ merge:
         pull_request: ${{ github.event.number }}
 ```
 
+## Development of a Github bot with Probot
 
+This second part will describe how to build a Github bot quickly using Probot and the Github APIs.
+As an example, the bot we created anterior to the tutorial is [available here](https://github.com/apps/probot-semantic-pr).
 
+### Starting template
+
+To start developping a Github bot, you first need a dedicated repository hosting the bot's code.
+With the command `npx create-probot-app my-custom-bot` you will be allowed to setup a basic "Hello World" bot following an interactive setup menu from the terminal.
+
+The simplest way to develop a Probot bot is to choose the `basic-ts` template as a basis to build the bot, which prevents us from meeting several issues we may encounter if we chose a JavaScript-based template instead.
+
+After creating a basis for the bot, you will have to register the Github bot as an App on Github by starting the bot running `npm start` and visiting the [localhost](http://localhost:3000). At the end of this process you will have the opportunity to add your bot to one of the repositories you have access to. This action can still be performed afterwards when you go on [https://github.com/apps/my-custom-bot](https://github.com/apps/probot-approved-pr) and click on the **Configure** button.
+
+### Required settings
+
+#### On the Github App page
+
+When the bot is created with the basic template and is registered, the next step is to set the settings so that they can match your repository's url, the Webhook url and enabling permissions on the necessary Github elements to read and write data. From the [Github app url](https://github.com/apps/probot-approved-pr), click on **App settings**.
+
+There you can find the APP ID of your app, the Client ID and you can generate a Client Secret Key to link your running code (in your local machine or on a working remote VM) to the Github App. The Client ID and Client Secret Key may be necessary only if you use some specific proxy webhook forwarders (like [Smee.io](https://smee.io/)).
+In other words, this secret key and the ID are used to authenticate **Smee.io** as your bot from Github's perspective for delivering Github events.
+
+Below you can see and change your bot name and description.
+Then you can setup the **Homepage url** to be the location of your repository hosting the code of your bot.
+
+The next relevant section is **Webhook** which is mandatory for us to receive informations when a Github event is triggered on the repositories the bot has access to. If the **Webhook url** isn't already defined and you don't have an open IP address to access to the forwarded Github events, you can go on [smee.io](https://smee.io/) and **Start a new channel**, copy the url and secret given by Smee.io. It will intercept the Github events triggered and forward them to your bot, it will play the role of a proxy server. In any cases, you must generate and copy a new **Webhook Secret** that will be used to allow your bot to have access to the triggered Github events.
+
+You must generate a new **Private Key** from the Github App settings page in order to fully allow your source code to be seen as the running instance of the Github App. 
+
+Finally, the most crucial settings for your bot is the access to Github data from the Github repositories using it. In the **Permissions & events** tab, you can select each permission your bot needs. It always needs access to **Metadata** and in our case, it also needs access to **Pull requests** and **Content** in both **Read** and **Write** in order to read informations about pull requests and trigger a merge. Once you save the changes in permissions, the owners of the repositories where the bot is installed will be notified and have to approve or not the new permissions, if not, the bot is simply removed from the repository.
+
+#### In the source code
+
+In your Probot bot repository, you can now in your generated [.env](https://github.com/DLC-Doodle-Bots-ESIR3-2021/probot-semantic-pr/blob/master/.env.example) file add the `APP_ID`, `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` and `WEBHOOK_SECRET` variables based on the settings of your Github App. If you use **Smee.io** as a proxy server for the Webhooks, add the `WEBHOOK_PROXY_URL` variable with the Webhook url you got from [smee.io](https://smee.io/). You will then have to install the **smee client** to have a working pipeline from [smee.io](https://smee.io/) to the running instance of your bot, as following: `npm i --save smee-client`.
+
+Matching the permissions you required from your Github App, you have to go on the [app.yml](https://github.com/DLC-Doodle-Bots-ESIR3-2021/probot-semantic-pr/blob/master/app.yml) file and uncomment the lines refering to the events you want to observe, also uncomment the permissions you requested on the Github App **Permissions & events** settings page to match the access rights required (pay attention to the difference between **read** and **write**).
+
+### Development of the bot
+
+The bot in itself is quite simple because the use of Github's GraphQL API eased a lot the process of fetching pertinent pieces of information and performing actions on the repositories.
+
+The `app.on(events, function)` scope defines which events to listen to and which function to execute when the designated events are triggered. A bot can have several `app.on(...)` scopes if you need to perform different actions depending on the event triggered.
+In our case, only the `pull_request_review.submitted` event is relevant.
+
+From each event, the Github Webhook will return a valuable information which is the `context`, argument of the function launched when the event is triggered. From the `context` we can either read information with `context.payload` or act on the repository with `context.octokit`.
+
+Our bot first reads (`payload`) the pull request **number** and **node_id** to identify it, then we use these pieces of information to make some authenticated requests to Github using the `context.octokit.graphql` method to perform complex API requests. The first one fetches the pull request's count of currently approved reviews and if the pull request has already been merged or not (based on the pull request's `number`). The second GraphQL call triggers a merge action on the pull request (identified this time by its `node_id`) if the branch hasn't already been merged and if the current number of approved reviews is at least 2.
+
+### How to make it run
+
+Simply compile the TypeScript code by running `npm run build` and then launch the bot's server by running `npm run start`. That's it! Your bot is now running and catching Github events, processing on the received events it looks for and consuming Github GraphQL API.
+
+### Nota Bene
+
+As of now, we weren't able to fix 2 problems:
+* First one is the duplicate of the actions, from our perspective, the bot receives the event 2 times. It may be caused because of the 2 consecutive GraphQL calls but we need to check a condition between the 2 calls so we can't merge them.
+* Second one is related to the bot authentication to GraphQL. In order for it to perform GraphQL calls, we had to provide to GraphQL with our own Github Personal Access Token (PAT) and on the repositories the actions performed by the bot are identified as performed by us instead, due to our PAT being the GraphQL authentication token.
