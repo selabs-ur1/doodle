@@ -9,15 +9,15 @@
 
 ## Authors
 
-Komi Amoussou
-Mathilde Blandel
-Léa Mercier
+Komi Amoussou \
+Mathilde Blandel \
+Léa Mercier \
 Haga Rakotomanana
 
 ## Credits
 
 Benoît Combemale \
-Gwendal Jouneaux \
+Gwendal Jouneaux 
 
 2021 - 2022
 ESIR3 - Spécialité "Systèmes d'Information"
