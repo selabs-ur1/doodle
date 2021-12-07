@@ -19,5 +19,5 @@ Haga Rakotomanana
 Benoît Combemale \
 Gwendal Jouneaux 
 
-2021 - 2022
+2021 - 2022 \
 ESIR3 - Spécialité "Systèmes d'Information"
