@@ -22,14 +22,14 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 @RequestMapping("/api")
 public class WeatherRessourceEx {
 
-    @ConfigProperty(name = "doodle.weatherServiceUrl", defaultValue = "http://localhost:3000/")
+    @ConfigProperty(name = "doodle.weatherServiceUrl", defaultValue = "http://host.docker.internal:8081/")
     String weatherServiceUrl = "";
 
     @GetMapping("/weather")
     public ResponseEntity<String> retrieveWeather() throws InterruptedException, ExecutionException, IOException {
         CloseableHttpAsyncClient client = HttpAsyncClients.createDefault();
         client.start();
-        HttpGet request = new HttpGet(weatherServiceUrl + "api/weather");
+        HttpGet request = new HttpGet(weatherServiceUrl + "forecast");
 
         Future<HttpResponse> future = client.execute(request, null);
         HttpResponse response = future.get();

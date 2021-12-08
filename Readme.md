@@ -5,20 +5,20 @@ Create a microservice
 Connect the microservice
 Docker for the new microservice
 
-## Run the back applicaiton using docker
+## Run the back applicaiton using docker (for windows)
 
-Update the application.yml file (for windows) :
-In order to do api requests from one docker container to another, you need to replace the host of the other container
-by the name of the images created when using docker-compose up.
-So for the etherpad microservice, it's api-etherpad-1, for the mail, it's api-mail-1 and for the database, it's api-db-1.
+Update the application.yml file :
+In order to do api requests from one docker container to another, you need to replace the host of the other containers
+from ```localhost``` to ```host.docker.internal```.
 Thus, you need to clean your tests file because they will not work anymore because we changed the host.
 
 Then, you can package and build the application using a dockerfile.
 
+In api folder :
 ```shell script
 ./mvnw package
 
-docker build -f api/src/main/docker/Dockerfile.jvm -t quarkus/code-with-quarkus-jvm .
+docker build -f src/main/docker/Dockerfile.jvm -t quarkus/code-with-quarkus-jvm .
 ```
 
 Now you can update the docker-compose file to run the application with a single command.
@@ -57,3 +57,13 @@ docker push [name_of_the_repository]
 ```
 
 And that's it, now you can run your application from other devices using the docker-compose file. You only need to check that the device has the rights to access your repository.
+
+## Create a new microservice and connect it to the former api
+
+We created a new microservice that will give the forecast using another framework called [Moleculer](https://moleculer.services/), but you can use any microservice that you want.
+Like the doodle api, we want to use docker to run our application.
+
+```shell script
+docker-compose -f api/docker-compose.yaml -f forecastapi/docker-compose.yaml up -d
+docker-compose -f api/docker-compose.yaml -f forecastapi/docker-compose.yaml down
+```

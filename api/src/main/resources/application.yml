@@ -1,8 +1,8 @@
 doodle:
   usepad: true
-  internalPadUrl: "http://api-etherpad-1:9001/"
-  externalPadUrl: "http://api-etherpad-1:9001/"
-  weatherServiceUrl: "http://host.docker.internal:3000/"
+  internalPadUrl: "http://host.docker.internal:9001/"
+  externalPadUrl: "http://host.docker.internal:9001/"
+  weatherServiceUrl: "http://host.docker.internal:8081/"
   padApiKey: "19d89ca52bc0fa4f19d6325464d9d7a032649b9fa68c111514627081e2784b4a"
   organizermail: "olivier.barais@gmail.com"
   tmpfolder: "/tmp/excelFiles"
@@ -12,7 +12,7 @@ quarkus:
     username: tlc
     password: tlc
     jdbc:
-      url: jdbc:mysql://api-db-1:3306/tlc?useUnicode=true&serverTimezone=Europe/Paris
+      url: jdbc:mysql://host.docker.internal:3306/tlc?useUnicode=true&serverTimezone=Europe/Paris
       driver: com.mysql.cj.jdbc.Driver
   flyway:
     migrate-at-start: true
@@ -23,7 +23,7 @@ quarkus:
   mailer:
     from: test@quarkus.io
 #    host: smtp.sendgrid.net
-    host: api-mail-1
+    host: host.docker.internal
     port: 2525
 #    port: 465
 #    ssl: true
