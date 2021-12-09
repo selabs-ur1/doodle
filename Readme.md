@@ -246,10 +246,10 @@ services:
 ``` 
 
 Then, stop and delete the container previously created :
-'''
+``` 
   docker container rm [container_name]
-  
-'''
+``` 
+
 container_name is not the name of the service but the name of the container.
 
 Then, return to the root folder. Launch the two docker-compose.yaml file. You can add as much docker-compose files as you want :
