@@ -1,7 +1,4 @@
-'use strict';
-
 const express = require('express');
-var http = require('http');
 const request = require('request-promise-native')
 
 // Constants
