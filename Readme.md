@@ -1,11 +1,19 @@
 # Cloud-native applications and microservice architecture
 
-## Run the back applicaiton using docker (for windows)
+Cloud-native applications heavily rely on microservices.
+So the purpose of this tutorial is to create a new microservice for the doodle application and make the launch easier using docker.
+This tutorial contains multiple parts :
+- [Run the doodle api using Docker](#part1)
+- [Publish an image on Docker Hub](#part2)
+- [Create a new microservice using a different framework and call it from the doodle api](#part3)
+- [Run the whole back-end using a single command line](#part4)
 
-Update the /api/src/main/resources/application.yml file :
+## <a id="part1"></a> Run the doodle api using docker (on windows)
+
+Update the [application.yml](https://github.com/selabs-ur1/doodle/blob/master/api/src/main/resources/application.yml) file :
 In order to do api requests from one docker container to another, you need to replace the host of the other containers
 from ```localhost``` to ```host.docker.internal```.
-Thus, you need to clean all your test files in the /api/src/test folder because they will not work anymore because we changed the host.
+Thus, you need to clean all your test files in the [test](https://github.com/selabs-ur1/doodle/tree/master/api/src/test/java/org/acme) folder because they will not work anymore because we changed the host.
 
 Then, you can package and build the application using a dockerfile.
 
@@ -16,7 +24,7 @@ Open a terminal and navigate to the api folder, then use the following command l
 docker build -f src/main/docker/Dockerfile.jvm -t quarkus/code-with-quarkus-jvm .
 ```
 
-Now you can update the docker-compose.yaml file to run the application with a single command.
+Now you can update the [docker-compose.yaml](https://github.com/selabs-ur1/doodle/blob/master/api/docker-compose.yaml) file to run the application with a single command.
 Add a new service to the docker-compose.
 ```yaml
   doodle_api:
@@ -35,11 +43,11 @@ docker-compose up --detach
 ```
 If the command can't run because some ports are already used, please kill those processes.
 
-## Publish the image to docker
+## <a id="part2"></a> Publish the image to docker
 
 If you don't want to publish an image on docker hub, you can skip this part.
 To publish the image of api_doodle on docker to use it on remote machines, you first need to create a repository on docker hub.
-The name of the repository should be ```[your_username]/[name_of_the_service]```.
+The name of the repository should be ```[your_docker_hub_username]/[name_of_the_service]```.
 Then you need to build the project with the name of the repository.
 
 ```sh
@@ -56,7 +64,7 @@ docker push [name_of_the_repository]
 
 And that's it, now you can run your application from other devices using the docker-compose file. You only need to check that the device has the rights to access your repository.
 
-## Create a new microservice and connect it to the api
+## <a id="part3"></a> Create a new microservice and connect it to the api
 
 Now that we saw how to run the existing app as a cloud-native application, you can create your own microservices to improve the doodle app.
 As an example, we created a new microservice that will give the forecast using an external api.
@@ -118,11 +126,11 @@ A "dependencies" key with all modules installed should have appeared in the pack
 
 Now you can run the microservice using ```npm run start``` and see the result at http://localhost:8081/forecast
 
-### Link the new microservice to the doodle api
+### Call the new microservice from the doodle api
 
 We now want to call our forecast microservice from the front-end application through the doodle api. So, we create a new endpoint that will redirect the forecast from the new microservice to the front-end.
 Following the former doodle example, we need first to tell to the doodle api which url the new microservice use.
-In application.yml file (api\src\main\resources folder) we add the following line under doodle:
+In [application.yml](https://github.com/selabs-ur1/doodle/blob/master/api/src/main/resources/application.yml) file we add the following line under doodle:
 
 ```yml
   weatherServiceUrl: "http://host.docker.internal:8081/"
@@ -131,7 +139,7 @@ In application.yml file (api\src\main\resources folder) we add the following lin
 Like that, if the url of our forecast microservice change, we will only need to change this line for the all api. 
 
 Now we can create a new endpoint, so that our front-end application can get the forecast through the doodle api.
-Like the other endpoints in this application, we create a new file dedicated to the forecast under api\src\main\java\fr\istic\tlc\resources folder, we called it WeatherResourcesEx.java
+Like the other endpoints in this application, we create a new file dedicated to the forecast under [resources](https://github.com/selabs-ur1/doodle/tree/master/api/src/main/java/fr/istic/tlc/resources) folder, we called it WeatherResourcesEx.java
 
 
 ```java
@@ -228,7 +236,7 @@ Then you can run the microservice with ```docker run -p 8081:8081 -d [name_of_th
 
 You should still have access to the forecast from the doodle api http://localhost:8080/api/weather.
 
-### Run the whole application with a single command
+## <a id="part4"></a> Run the whole application with a single command
 
 Finally, we want to run all of our microservices using Docker and with a single command.
 
