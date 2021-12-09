@@ -209,19 +209,21 @@ EXPOSE 8081
 CMD [ "node", "server.js" ]
 ```
 
-To run the DockerFile and create the image, run ```docker build . -t [your_username]/[name_of_the_service]```
+To run the DockerFile and build the image, run ```docker build . -t [your_username]/[name_of_the_service]```
+Then tou can run the microservice with ```docker run -p 8081:8081 -d [your_username]/[name_of_the_service]```
+
+You should still have access to the forecast from the doodle api http://localhost:8080/api/weather.
+
+### Run the whole application with a single command
+
+Finally, we want to run all of our microservices using Docker and with a single command.
+
+To do this, we first need to create a new docker-compose file to run the forecast microservice.
 
 
 
 
-
-
-
-<!-- link to doodle
-run with docker
-run all microservices with a unique command
-
-
+<!--
 ```shell script
 docker-compose -f api/docker-compose.yaml -f forecastapi/docker-compose.yaml up -d
 docker-compose -f api/docker-compose.yaml -f forecastapi/docker-compose.yaml down
