@@ -2,21 +2,21 @@
 
 ## Run the back applicaiton using docker (for windows)
 
-Update the application.yml file :
+Update the /api/src/main/resources/application.yml file :
 In order to do api requests from one docker container to another, you need to replace the host of the other containers
 from ```localhost``` to ```host.docker.internal```.
-Thus, you need to clean your tests file because they will not work anymore because we changed the host.
+Thus, you need to clean all your test files in the /api/src/test folder because they will not work anymore because we changed the host.
 
 Then, you can package and build the application using a dockerfile.
 
-In api folder :
+Open a terminal and navigate to the api folder, then use the following command lines :
 ```sh
 ./mvnw package
 
 docker build -f src/main/docker/Dockerfile.jvm -t quarkus/code-with-quarkus-jvm .
 ```
 
-Now you can update the docker-compose file to run the application with a single command.
+Now you can update the docker-compose.yaml file to run the application with a single command.
 Add a new service to the docker-compose.
 ```yaml
   doodle_api:
@@ -26,16 +26,18 @@ Add a new service to the docker-compose.
       - "8080:8080"
 ```
 
-We set the restart parameter to always because the application need the others microservices to run in order to compile.
+We set the restart parameter to always because the application needs the other microservices to be already running in order to compile.
 So the doodle_api container may restart a couple of times before running correctly.
 
 Use the following command to run the whole application. The application should be running at localhost:8080.
 ```sh
 docker-compose up --detach
 ```
+If the command can't run because some ports are already used, please kill those processes.
 
 ## Publish the image to docker
 
+If you don't want to publish an image on docker hub, you can skip this part.
 To publish the image of api_doodle on docker to use it on remote machines, you first need to create a repository on docker hub.
 The name of the repository should be ```[your_username]/[name_of_the_service]```.
 Then you need to build the project with the name of the repository.
@@ -54,17 +56,17 @@ docker push [name_of_the_repository]
 
 And that's it, now you can run your application from other devices using the docker-compose file. You only need to check that the device has the rights to access your repository.
 
-## Create a new microservice and connect it to the former api
+## Create a new microservice and connect it to the api
 
 Now that we saw how to run the existing app as a cloud-native application, you can create your own microservices to improve the doodle app.
 As an example, we created a new microservice that will give the forecast using an external api.
-We did this microservice as a simple node.js api but you may use any framework that you want.
+We did this microservice as a simple node.js api but you may use the framework that you want.
 Here are some examples on this [page](https://medium.com/microservices-architecture/top-10-microservices-framework-for-2020-eefb5e66d1a2).
 
 ### Node.js forecast microservice
 
-Firstly, create a new folder at the root of the project where you will put your microservice.
-We use the express framework to create our api and also request module to make request to the external api.
+First, create a new folder at the root of the project. This is where you can put your microservices.
+We used the express framework to create our api and also the request module to make our requests to the external api.
 
 Our microservice is just a single JavaScript file called server.js with a unique endpoint called forecast.
 
@@ -80,7 +82,7 @@ const HOST = '0.0.0.0'; // localhost
 // App
 const app = express();
 app.get('/forecast', async (req, res) => {
-    const uri = '' // We set here the uri of the external api that we call
+    const uri = 'http://api.weatherapi.com/v1/forecast.json?key=1baa4a47b6694dd89d274000212911&q=London&days=1&aqi=no&alerts=no' // We set here the uri of the external api that we call
 
     const forecast = await request(uri)
     res.json(forecast)
@@ -112,7 +114,7 @@ npm install request
 npm install request-promise-native
 ```
 
-A dependencies key with all modules installed should have appeared in the package.json file.
+A "dependencies" key with all modules installed should have appeared in the package.json file.
 
 Now you can run the microservice using ```npm run start``` and see the result at http://localhost:8081/forecast
 
@@ -123,13 +125,13 @@ Following the former doodle example, we need first to tell to the doodle api whi
 In application.yml file (api\src\main\resources folder) we add the following line under doodle:
 
 ```yml
-  weatherServiceUrl: "http://localhost:8081/"
+  weatherServiceUrl: "http://host.docker.internal:8081/"
 ```
 
 Like that, if the url of our forecast microservice change, we will only need to change this line for the all api. 
 
 Now we can create a new endpoint, so that our front-end application can get the forecast through the doodle api.
-As the other endpoints in this application, we create a new file dedicated to the forecast under api\src\main\java\fr\istic\tlc\resources folder, we called it WeatherRessourcesEx.
+Like the other endpoints in this application, we create a new file dedicated to the forecast under api\src\main\java\fr\istic\tlc\resources folder, we called it WeatherResourcesEx.java
 
 
 ```java
@@ -155,7 +157,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @RestController
 @RequestMapping("/api")
-public class WeatherRessourceEx {
+public class WeatherResourceEx {
 
     @ConfigProperty(name = "doodle.weatherServiceUrl", defaultValue = "http://localhost:8081/") // Here we collect the url of our forecast microservice from the application.yml file
     String weatherServiceUrl = "";
@@ -182,6 +184,18 @@ public class WeatherRessourceEx {
 
 }
 ```
+If you built the application earlier, use the following command line :
+```
+  docker-compose down
+```
+
+Build the application (in a terminal, in the /api/ forlder):
+```
+  ./mvnw package
+  docker build -f src/main/docker/Dockerfile.jvm -t quarkus/code-with-quarkus-jvm .
+  docker-compose up --detach
+```
+Wait for the api_doodle_api_1 container to start running properly
 
 If all went well, now, you may access the forecast from http://localhost:8080/api/weather, while running the forecast microservice and the doodle api.
 
@@ -189,7 +203,7 @@ If all went well, now, you may access the forecast from http://localhost:8080/ap
 
 In order to run the whole application as a cloud-native application as we did in the first part, we need to create a docker image for our new forecast microservice.
 
-First, we need a DockerFile to create our image. So, add a new file in the microservice folder called DockerFile :
+First, we need a Dockerfile to create our image. So, add a new file in the microservice folder called Dockerfile :
 
 ```DockerFile
 FROM node:10
@@ -209,8 +223,8 @@ EXPOSE 8081
 CMD [ "node", "server.js" ]
 ```
 
-To run the DockerFile and build the image, run ```docker build . -t [your_username]/[name_of_the_service]```
-Then tou can run the microservice with ```docker run -p 8081:8081 -d [your_username]/[name_of_the_service]```
+To run the DockerFile and build the image, run ```docker build . -t [name_of_the_service]```
+Then you can run the microservice with ```docker run -p 8081:8081 -d [name_of_the_service]```
 
 You should still have access to the forecast from the doodle api http://localhost:8080/api/weather.
 
@@ -220,11 +234,31 @@ Finally, we want to run all of our microservices using Docker and with a single 
 
 To do this, we first need to create a new docker-compose file to run the forecast microservice.
 
+create a new docker-compose.yaml file
 
+```docker-compose.yaml
+version: "3.8"
+services:
+  forecast:
+    image: [name_of_the_service]
+    ports:
+      - "8081:8081"
+``` 
 
+Then, stop and delete the container previously created :
+'''
+  docker container rm [container_name]
+  
+'''
+container_name is not the name of the service but the name of the container.
 
-<!--
+Then, return to the root folder. Launch the two docker-compose.yaml file. You can add as much docker-compose files as you want :
+
 ```shell script
-docker-compose -f api/docker-compose.yaml -f forecastapi/docker-compose.yaml up -d
-docker-compose -f api/docker-compose.yaml -f forecastapi/docker-compose.yaml down
-``` -->
+docker-compose -f api/docker-compose.yaml -f [PATH_TO_THE_FILE]/docker-compose.yaml up -d
+``` 
+
+To stop everything, run the following command
+```shell script 
+  docker-compose -f api/docker-compose.yaml -f forecastapi/docker-compose.yaml down
+``` 

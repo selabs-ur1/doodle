@@ -20,7 +20,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @RestController
 @RequestMapping("/api")
-public class WeatherRessourceEx {
+public class WeatherResourceEx {
 
     @ConfigProperty(name = "doodle.weatherServiceUrl", defaultValue = "http://host.docker.internal:8081/")
     String weatherServiceUrl = "";
