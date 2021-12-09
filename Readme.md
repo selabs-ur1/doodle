@@ -81,9 +81,10 @@ $ npm install
 ```sh
 $ npm start
 ``` 
-## Application's monitoring
-At the address: http://localhost:16686/, we have the graphical interface of Jaeger:
+## Monitoring distribution
+At the address: http://localhost:16686/, we have the graphical interface of Jaeger, to visualize distributed tracing with it:
 ![image](https://user-images.githubusercontent.com/65306153/144050178-4005ca68-4d8e-4037-963a-6012bb742c08.png)
+
 
 ### By starting, we can create a survey in the application and see result on Jaeger :
 Creation of our poll :
@@ -94,11 +95,15 @@ Creation of our poll :
 Results on Jaeger :
 ![image](https://user-images.githubusercontent.com/65306153/144050920-501d1183-7475-4708-8849-112799a59980.png)
 The dot at the top tells us the time the request was made and its duration (time to response). We can click on its trace to learn more.
+Distributed tracing is a technique that is used to tie the information about different units of work together—usually executed in different processes or hosts—in order to understand a whole chain of events in a distributed transaction. Tracing lets us visualize, in our case with doodle, call flows in this service oriented architectures. It can be invaluable in understanding serialization, parallelism, and sources of latency.
 
 <br/>
 
 ![image](https://user-images.githubusercontent.com/65306153/144051879-6e6a21ca-2673-4e16-971c-0846d969d4f6.png)
 Here we can see the HTTP method (POST), the response obtained (201), the URL... In the name of the trace we can also see which method of which class was called.
+Jaeger records the execution of individual requests across the whole stack of microservices, and presents them as traces. A trace is a data/execution path through the system. An end-to-end trace is comprised of one or more spans.
+
+A span represents a logical unit of work in Jaeger that has an operation name, the start time of the operation, and the duration. Spans may be nested and ordered to model causal relationships.
 
 <br/><br/>
 
@@ -106,6 +111,11 @@ Now we can try to create a meeting participant :
 ![image](https://user-images.githubusercontent.com/65306153/144052754-ddd26b4f-bec5-4c68-94ac-92f69fbc1f86.png)
 
 <br/>
+
+Observability :
+All Jaeger backend components expose Prometheus metrics by default (other metrics backends are also supported). Logs are written to standard out using the structured logging library zap.
+High Scalability:
+Jaeger backend is designed to have no single points of failure and to scale with the business needs. For example, any given Jaeger installation at Uber is typically processing several billions of spans per day.
 
 We click to participate and fill in the fields, then we submit :
 
@@ -118,6 +128,8 @@ Now we have new traces in Jaeger (2 GET and 1 POST) that will be used to create 
 ![image](https://user-images.githubusercontent.com/65306153/144053270-9489cfb5-aceb-4e08-85c9-71aa9a812c0d.png)
 
 As for the old trace we can click to have all the information on these requests.
-
+And arriving at this point, to finish, we have also the Logging:
+Jaeger components only log to standard out, using structured logging library configured to write log lines as JSON encoded strings.
+To add , the logging system records discrete events. For example, you can use the debug information or error messages of applications to troubleshoot issues.
 
 
