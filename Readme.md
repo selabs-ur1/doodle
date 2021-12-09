@@ -129,9 +129,9 @@ Now we have new traces in Jaeger (2 GET and 1 POST) that will be used to create 
 ![image](https://user-images.githubusercontent.com/65306153/144053270-9489cfb5-aceb-4e08-85c9-71aa9a812c0d.png)
 
 As for the old trace we can click to have all the information on these requests.
-And arriving at this point,
 
-to finish, we have also the Logging:
+
+And arriving at this point,to finish, we have also the Logging:
 Jaeger components only log to standard out, using structured logging library configured to write log lines as JSON encoded strings.
 To add , the logging system records discrete events. For example, you can use the debug information or error messages of applications to troubleshoot issues.
 
