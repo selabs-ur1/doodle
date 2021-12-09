@@ -37,6 +37,7 @@ docker-compose up --detach
 ## Publish the image to docker
 
 To publish the image of api_doodle on docker to use it on remote machines, you first need to create a repository on docker hub.
+The name of the repository should be ```[your_username]/[name_of_the_service]```.
 Then you need to build the project with the name of the repository.
 
 ```sh
@@ -93,9 +94,9 @@ We also need to add a package.json file to describe and configure our node appli
 
 ```json
 {
-    "name": "nodeapp",
+    "name": "forecastapp",
     "version": "1.0.0",
-    "description": "Node.js on Docker",
+    "description": "Forecast app",
     "main": "server.js",
     "scripts": {
         "start": "node server.js"
@@ -113,6 +114,102 @@ npm install request-promise-native
 
 A dependencies key with all modules installed should have appeared in the package.json file.
 
+Now you can run the microservice using ```npm run start``` and see the result at http://localhost:8081/forecast
+
+### Link the new microservice to the doodle api
+
+We now want to call our forecast microservice from the front-end application through the doodle api. So, we create a new endpoint that will redirect the forecast from the new microservice to the front-end.
+Following the former doodle example, we need first to tell to the doodle api which url the new microservice use.
+In application.yml file (api\src\main\resources folder) we add the following line under doodle:
+
+```yml
+  weatherServiceUrl: "http://localhost:8081/"
+```
+
+Like that, if the url of our forecast microservice change, we will only need to change this line for the all api. 
+
+Now we can create a new endpoint, so that our front-end application can get the forecast through the doodle api.
+As the other endpoints in this application, we create a new file dedicated to the forecast under api\src\main\java\fr\istic\tlc\resources folder, we called it WeatherRessourcesEx.
+
+
+```java
+package fr.istic.tlc.resources;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.nio.client.CloseableHttpAsyncClient;
+import org.apache.http.impl.nio.client.HttpAsyncClients;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
+@RestController
+@RequestMapping("/api")
+public class WeatherRessourceEx {
+
+    @ConfigProperty(name = "doodle.weatherServiceUrl", defaultValue = "http://localhost:8081/") // Here we collect the url of our forecast microservice from the application.yml file
+    String weatherServiceUrl = "";
+
+    @GetMapping("/weather") // The endpoint
+    public ResponseEntity<String> retrieveWeather() throws InterruptedException, ExecutionException, IOException {
+        CloseableHttpAsyncClient client = HttpAsyncClients.createDefault();
+        client.start();
+        HttpGet request = new HttpGet(weatherServiceUrl + "forecast");
+
+        Future<HttpResponse> future = client.execute(request, null);
+        HttpResponse response = future.get();
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        response.getEntity().writeTo(out);
+        String responseString = out.toString();
+        out.close();
+        client.close();
+
+        System.out.println(responseString);
+
+        return new ResponseEntity<>(responseString, HttpStatus.OK);
+    }
+
+}
+```
+
+If all went well, now, you may access the forecast from http://localhost:8080/api/weather, while running the forecast microservice and the doodle api.
+
+### Run the forecast microservice using Docker
+
+In order to run the whole application as a cloud-native application as we did in the first part, we need to create a docker image for our new forecast microservice.
+
+First, we need a DockerFile to create our image. So, add a new file in the microservice folder called DockerFile :
+
+```DockerFile
+FROM node:10
+
+# Create app directory
+WORKDIR /usr/src/app
+
+# Install app dependencies
+COPY package*.json ./
+
+RUN npm install
+
+# Bundle app source
+COPY . .
+
+EXPOSE 8081
+CMD [ "node", "server.js" ]
+```
+
+To run the DockerFile and create the image, run ```docker build . -t [your_username]/[name_of_the_service]```
 
 
 
@@ -120,9 +217,7 @@ A dependencies key with all modules installed should have appeared in the packag
 
 
 
-
-
-link to doodle
+<!-- link to doodle
 run with docker
 run all microservices with a unique command
 
@@ -130,4 +225,4 @@ run all microservices with a unique command
 ```shell script
 docker-compose -f api/docker-compose.yaml -f forecastapi/docker-compose.yaml up -d
 docker-compose -f api/docker-compose.yaml -f forecastapi/docker-compose.yaml down
-```
+``` -->
