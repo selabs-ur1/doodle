@@ -8,9 +8,9 @@ L'A/B testing consistent à comparer deux versions d'une même application en fais
 On le fait de manière totalement transparente, en envoyant les utilisateur vers l'une des deux versions de manière totalement arbitraire.
 On va ensuite récolter les données correspondantes au(x) critère(s) que l'on cherche à améliorer, afin de pouvoir quelle version est la plus intéressante pour nous.
 
-## Présentation d'un plan de route pour le réaliser
+## Presentation of a road map to achieve it
 
-### étape 0 : récupérer Doodle à partir du git fournit en cours
+### étape 0 : get Doodle from the current git provided
 git clone https://github.com/selabs-ur1/doodle.git
 
 ### étape 1 : download GrowthBook
@@ -29,8 +29,16 @@ https://docs.growthbook.io/lib/js
 
 ### étape 3 : générer la modification souhaitée
 
+
+For this example will add a reset button which will clear all the selected choice on the calendar. 
+
+Add the following code at the file front/src/app/create-poll-component/create-poll-compenent.component.html : 
+```HTML
+<div>
+	<p-button label="Tout Supprimer"></p-button>
+</div>
 ```
-```
+where you want to add this butto. 
 
 ### étape 4 : faire tourner les différentes versions et sauvegardés les statistiques de chacunes
 
