@@ -1,3 +1,7 @@
+# Wiki
+
+To lean more about Devops & Security, go to wiki => https://github.com/ValentinLorand/doodle/wiki
+
 # Remote meetings planning
 
 This project is used in a course on the *ops* part at the [University of Rennes](https://www.univ-rennes1.fr/), France. It is a kind of doodle clone developed in so-called "cloud-native" technologies in order to allow students to work on a continuous deployment chain in a containerized environment. Among the feature, the application automatically initializes a pad for the meeting and a chat room for the meeting participants.
@@ -14,7 +18,7 @@ Three videos (in french) are available. They present:
 
 For french native speaker that wants to follow the course. The course web page is available [here](https://hackmd.diverse-team.fr/s/SJqu5DjSD).
 
-## Requirments
+## Requirements
 
 Verify that these are installed on your computer :
 

@@ -160,7 +160,7 @@ export class CreatePollComponentComponent implements OnInit {
       validRange: {
         start: Date.now()
       }
-    };
+    } as any;
 
     this.actRoute.paramMap.subscribe(params => {
       this.slugid = params.get('slugadminid');
