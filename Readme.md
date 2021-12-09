@@ -131,8 +131,9 @@ Now we have new traces in Jaeger (2 GET and 1 POST) that will be used to create 
 As for the old trace we can click to have all the information on these requests.
 
 
-And arriving at this point,to finish, we have also the Logging:
-Jaeger components only log to standard out, using structured logging library configured to write log lines as JSON encoded strings.
+And arriving at this point,to finish, we can also say that for the logging, Jaeger components only log to standard out, using structured logging library configured to write log lines as JSON encoded strings.
+
+
 To add , the logging system records discrete events. For example, you can use the debug information or error messages of applications to troubleshoot issues.
 
 
