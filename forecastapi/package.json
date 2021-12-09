@@ -1,7 +1,7 @@
 {
-    "name": "nodeapp",
+    "name": "forecastapp",
     "version": "1.0.0",
-    "description": "Node.js on Docker",
+    "description": "Forecast app",
     "main": "server.js",
     "scripts": {
         "start": "node server.js"
