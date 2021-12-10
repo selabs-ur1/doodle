@@ -89,7 +89,7 @@ Fill the box (like the photo for example) :
 Click on Start for running the test and wait to recolt your statistics
 
 ### Step 5 : Visualiser, et monitorer l'impact des variations à l'aide de GrowthBook
-If you want to look what you can have, check this [video](https://www.youtube.com/watch?v=NCIEe1me9oE)
+If you want to look what you can have, check this [video](https://youtu.be/OY8DvD7eIiE?t=78)
 
 
 ### Going deeper
