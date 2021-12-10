@@ -538,11 +538,11 @@ resource "aws_security_group" "sg_docker" {
 
 For this terraform tutorial, we defined our infrastructure, from network to instance, using variables. As you will notice, a mix of variable type and hard-coded value is done for learning purposes.
 You can find the complete code of the files via the following links:
-[main.tf](main.tf),
-[variables.tf](variables.tf),
-[terraform.tfvars](terraform.tfvars),
-[output.tf](output.tf) and
-[sg.tf](sg.tf)
+[main.tf](terraform/main.tf),
+[variables.tf](terraform/variables.tf),
+[terraform.tfvars](terraform/terraform.tfvars),
+[output.tf](terraform/output.tf) and
+[sg.tf](terraform/sg.tf)
 
 For running the code, execute the command below: 
 ``terraform init``
