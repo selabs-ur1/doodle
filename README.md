@@ -1,6 +1,7 @@
 # DLC : Fuzzing, A/B and Canary Testing
 
-As part of the Devops course at [ESIR](https://esir.univ-rennes1.fr/), we have been asked to make a tutorial on different testing techniques such as *fuzzing*, *A/B testing* and *canary testing*. This tutorial is applied on the project [doodle](https://github.com/selabs-ur1/doodle). \
+As part of the Devops course at [ESIR](https://esir.univ-rennes1.fr/), we have been asked to make a tutorial on different testing techniques such as *fuzzing*, *A/B testing* and *canary testing*. \
+This tutorial is applied on the project [doodle](https://github.com/selabs-ur1/doodle). \
 To install doodle, please follow [these instructions](https://github.com/selabs-ur1/doodle#readme).
 
 ## Fuzzing
@@ -11,7 +12,8 @@ To install doodle, please follow [these instructions](https://github.com/selabs-
 
 ## A/B Testing
 
-**A/B testing** is a testing technique which purpose is to determine which version from two versions of a same application are the most appealing to the users. 
+**A/B testing** is a testing technique which purpose is to determine which version from two versions of a same application are the most appealing to the users. \
+
 [here](Readme_AB_Testing.md) is our documented fuzzing tutorial.
 
 ## Canary Testing
