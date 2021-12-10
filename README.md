@@ -12,7 +12,7 @@ To install doodle, please follow [these instructions](https://github.com/selabs-
 
 ## A/B Testing
 
-**A/B testing** is a testing technique which purpose is to determine which version from two versions of a same application are the most appealing to the users. \
+**A/B testing** is a testing technique which purpose is to determine which version from two versions of a same application are the most appealing to the users. 
 
 [here](Readme_AB_Testing.md) is our documented fuzzing tutorial.
 
