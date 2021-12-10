@@ -59,10 +59,10 @@ cd front
 npm install --save @growthbook/growthbook
 ```
 
-If you need more information refere to the [https://docs.growthbook.io/lib/js](documentation)
+If you need more information refere to the [documentation](https://docs.growthbook.io/lib/js)
 
 
-### étape 3 : Generate a modification
+### Step 3 : Generate modification
 
 
 For this example will add a reset button which will clear all the selected choice on the calendar. 
