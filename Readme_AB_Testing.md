@@ -42,8 +42,8 @@ Set up your metric as you want. In this tuto we will use a Binomial metric and l
 ![Alt Image text](front/src/assets/new-metric2.PNG "new metric")
 
 
-![Alt Image text](front/src/assets/new-metric3.PNG?width=15% "new metric")
 
+<img src="front/src/assets/new-metric3.PNG" width="10%" height="10%">
 
 ![Alt Image text](front/src/assets/new-metric4.PNG "new metric")
 
