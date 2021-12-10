@@ -3,10 +3,10 @@
 ## Introduction
 
 The A/B testing goal is to determine which versions from two versions of a same aplication is the more appealing to the users.
-For that we are going to show to each user one version selected 
-L'A/B testing consistent à comparer deux versions d'une même application en faisant tester chaques versions à un grand nombre d'utiliseurs.
-On le fait de manière totalement transparente, en envoyant les utilisateur vers l'une des deux versions de manière totalement arbitraire.
-On va ensuite récolter les données correspondantes au(x) critère(s) que l'on cherche à améliorer, afin de pouvoir quelle version est la plus intéressante pour nous.
+For that we are going to show to each user one version selected
+We send the users to one of the two versions in a completely transparent way.
+We will then collect the data corresponding to the criterion (s) that we are trying to improve, in order to be able to which version is the most interesting for us.
+.
 
 ## Presentation of a road map to achieve it
 
@@ -86,16 +86,12 @@ Fill the box (like the photo for example) :
 <img src="front/src/assets/new-experiment2.PNG" width="50%" height="50%">
 <img src="front/src/assets/new-experiment3.PNG" width="50%" height="50%">
 
-Click on Start for running the test
+Click on Start for running the test and wait to recolt your statistics
 
-### Step 5 : faire tourner les différentes versions et sauvegardés les statistiques de chacunes
-
-### Step 6 : Visualiser, et monitorer l'impact des variations à l'aide de GrowthBook
-
-https://www.youtube.com/watch?v=NCIEe1me9oE
+### Step 5 : Visualiser, et monitorer l'impact des variations Ã  l'aide de GrowthBook
+If you want to look what you can have, check this [video] (https://www.youtube.com/watch?v=NCIEe1me9oE)
 
 
 ### Going deeper
 
-If you are interresting with Grothwbook, 
-Métrics calculée : nombre de cliques sur le bouton + temps passée sur la page comportant le bouton
+GrowthBooks allows you to use your different tools such as Google Analytics, other database as Postgresql, MariaDB
