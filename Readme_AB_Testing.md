@@ -38,22 +38,31 @@ A metric will design on which way you will compare your version A and B
 
 ![Alt Image text](front/src/assets/new_metric.PNG "new metric")
 
+Set up your metric as you want. In this tuto we will use a Binomial metric and let the default value.
 ![Alt Image text](front/src/assets/new-metric2.PNG "new metric")
 
-![Alt Image text](front/src/assets/new-metric3.PNG "new metric")
-![Alt Image text](front/src/assets/new-metric4.PNG "new metric")
 
+![Alt Image text](front/src/assets/new-metric3.PNG?width=15% "new metric")
+
+
+![Alt Image text](front/src/assets/new-metric4.PNG "new metric")
 
 
 
 ### Step 2 : Ajouter la librairie GrowthBook dans le code de base
 
+For adding the library in js, type the following command 
+
 ```
 https://docs.growthbook.io/lib/js
+cd front
+npm install --save @growthbook/growthbook
 ```
 
+If you need more information refere to the [https://docs.growthbook.io/lib/js](documentation)
 
-### étape 3 : générer la modification souhaitée
+
+### étape 3 : Generate a modification
 
 
 For this example will add a reset button which will clear all the selected choice on the calendar. 
