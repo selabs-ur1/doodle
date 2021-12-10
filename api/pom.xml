@@ -205,6 +205,11 @@
 					</systemPropertyVariables>
 				</configuration>
 			</plugin>
+			<plugin>
+    			<groupId>org.pitest</groupId>
+    			<artifactId>pitest-maven</artifactId>
+    			<version>1.7.3</version>
+ 			</plugin>
 		</plugins>
 	</build>
 	<profiles>
