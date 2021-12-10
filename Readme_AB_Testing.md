@@ -32,9 +32,19 @@ Click on Register and fill the box as the photo (no data will be save as long yo
 
 Connect with the information you have provided
 
-Go to the section Metrics click to add new metrics
+Go to the section Metrics click to "Add your first metric"
+
+A metric will design on which way you will compare your version A and B
 
 ![Alt Image text](front/src/assets/new_metric.PNG "new metric")
+
+![Alt Image text](front/src/assets/new-metric2.PNG "new metric")
+
+![Alt Image text](front/src/assets/new-metric3.PNG "new metric")
+![Alt Image text](front/src/assets/new-metric4.PNG "new metric")
+
+
+
 
 ### Step 2 : Ajouter la librairie GrowthBook dans le code de base
 
