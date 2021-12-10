@@ -20,3 +20,21 @@ services:
     restart: always
     ports:
       - "2525:25"
+  
+  sonarqube:
+    image: sonarqube:8.9.1-community
+    ports:
+      - "9011:9011"
+    volumes:
+      - "conf:/opt/sonarqube/conf"
+      - "extensions:/opt/sonarqube/extensions"
+      - "logs:/opt/sonarqube/logs"
+      - "data:/opt/sonarqube/data"
+    environment: []
+    
+volumes:
+  data:
+  logs:
+  extensions:
+  conf:
+

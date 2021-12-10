@@ -1,0 +1,35 @@
+build-job:
+  stage: build
+  script:
+    - cd doodle/api
+    - docker-compose up -d
+    - sleep 20
+    - mvn clean install
+    - docker-compose down 
+
+test-job:
+  stage: test
+  script:
+    - cd doodle/api
+    - docker-compose up -d
+    - sleep 20
+    - mvn test
+    - mvn org.pitest:pitest-maven:mutationCoverage
+    - docker-compose down
+
+sonarqube-check:
+  stage: deploy
+  variables:
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
+    GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .sonar/cache
+  script:
+    - cd doodle/api
+    - docker-compose up -d
+    - sleep 20
+    - mvn verify sonar:sonar -Dsonar.projectKey=ProjetDLC -Dsonar.host.url=http://148.60.11.181:9000 -Dsonar.login=76e2603f096e2076e7357e788b2744a0239cc82c -Dsonar.links.scm=https://gitlab.istic.univ-rennes1.fr/18005675/projet_dlc
+    - docker-compose down
+
