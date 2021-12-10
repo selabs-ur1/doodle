@@ -10,10 +10,10 @@ On va ensuite récolter les données correspondantes au(x) critère(s) que l'on che
 
 ## Presentation of a road map to achieve it
 
-### étape 0 : get Doodle from the current git provided
+### Step 0 : get Doodle from the current git provided
 git clone https://github.com/selabs-ur1/doodle.git
 
-### étape 1 : Download GrowthBook and start it
+### Step 1 : Download GrowthBook and start it
 For this tutorial we will use GrowthBook, in a terminal run the follonwing instruction : 
 
 ```
@@ -22,12 +22,21 @@ cd growthbook
 docker-compose up -d
 ```
 
-Then go to [localhost:3000](localhost:3000). 
+Then go to [http://localhost:3000](localhost:3000). 
 
 You should arrive to this page : ![Alt Image text](front/src/assets/etape1.PNG "Start menu")
 
+Click on Register and fill the box as the photo (no data will be save as long you stay on localhost)
 
-### étape 2 : Ajouter la librairie GrowthBook dans le code de base
+![Alt Image text](front/src/assets/etape-register.PNG "Start menu")
+
+Connect with the information you have provided
+
+Go to the section Metrics click to add new metrics
+
+![Alt Image text](front/src/assets/new-metric.PNG "new metric")
+
+### Step 2 : Ajouter la librairie GrowthBook dans le code de base
 
 ```
 https://docs.growthbook.io/lib/js
