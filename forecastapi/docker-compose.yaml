@@ -1,0 +1,6 @@
+version: "3.8"
+services:
+  forecast:
+    image: martingarnier/forecastapp
+    ports:
+      - "8081:8081"
