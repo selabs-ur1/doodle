@@ -13,7 +13,8 @@ On va ensuite récolter les données correspondantes au(x) critère(s) que l'on che
 ### étape 0 : get Doodle from the current git provided
 git clone https://github.com/selabs-ur1/doodle.git
 
-### étape 1 : download GrowthBook
+### étape 1 : Download GrowthBook and start it
+For this tutorial we will use GrowthBook, in a terminal run the follonwing instruction : 
 
 ```
 git clone https://github.com/growthbook/growthbook.git
@@ -21,11 +22,17 @@ cd growthbook
 docker-compose up -d
 ```
 
+Then go to [localhost:3000](localhost:3000). 
+
+You should arrive to this page : ![Alt Image text](front/src/app/assets/etape1.PNG?raw=true "Start menu")
+
+
 ### étape 2 : Ajouter la librairie GrowthBook dans le code de base
 
 ```
 https://docs.growthbook.io/lib/js
 ```
+
 
 ### étape 3 : générer la modification souhaitée
 
@@ -38,7 +45,7 @@ Add the following code at the file front/src/app/create-poll-component/create-po
 	<p-button label="Tout Supprimer"></p-button>
 </div>
 ```
-where you want to add this butto. 
+where you want to add this button. (We will not implemant all the interaction with this button as long we just need an easy example)
 
 ### étape 4 : faire tourner les différentes versions et sauvegardés les statistiques de chacunes
 
@@ -47,4 +54,7 @@ where you want to add this butto.
 https://www.youtube.com/watch?v=NCIEe1me9oE
 
 
+### Going deeper
+
+If you are interresting with Grothwbook, 
 Métrics calculée : nombre de cliques sur le bouton + temps passée sur la page comportant le bouton

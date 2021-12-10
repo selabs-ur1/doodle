@@ -5,6 +5,13 @@ import { FullCalendarComponent, CalendarOptions, EventInput } from '@fullcalenda
 import frLocale from '@fullcalendar/core/locales/fr';
 import { PollChoice, Poll, User } from '../model/model';
 import { ActivatedRoute } from '@angular/router';
+import { GrowthBook } from "@growthbook/growthbook";
+import type {
+  Context,
+  Experiment,
+  Result,
+  ExperimentOverride,
+} from "@growthbook/growthbook";
 
 
 @Component({
@@ -259,8 +266,13 @@ export class CreatePollComponentComponent implements OnInit {
         this.step = 2;
       });
 
-
     }
+    // The "number" part refers to the variation type
+const exp: Experiment<any> = {
+  key: "new-button-reset",
+  variations: [null,document.getElementById('buttonDelete') ],
+  status: "stopped", // Type error! (should be "stopped")
+};
 
   }
 
@@ -372,4 +384,6 @@ export class CreatePollComponentComponent implements OnInit {
     );
 
   }
+
+
 }
