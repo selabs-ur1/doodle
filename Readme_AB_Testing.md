@@ -49,12 +49,11 @@ Set up your metric as you want. In this tuto we will use a Binomial metric and l
 
 
 
-### Step 2 : Ajouter la librairie GrowthBook dans le code de base
+### Step 2 : Adding grothwbook on JS
 
 For adding the library in js, type the following command 
 
 ```
-https://docs.growthbook.io/lib/js
 cd front
 npm install --save @growthbook/growthbook
 ```
@@ -75,9 +74,22 @@ Add the following code at the file front/src/app/create-poll-component/create-po
 ```
 where you want to add this button. (We will not implemant all the interaction with this button as long we just need an easy example)
 
-### étape 4 : faire tourner les différentes versions et sauvegardés les statistiques de chacunes
+And implement your growthbook in Js like in the [documentation](https://docs.growthbook.io/lib/js)
 
-### étape 5 : Visualiser, et monitorer l'impact des variations à l'aide de GrowthBook
+### Step 4 : Create an experimentation
+
+Return to GrowthBook and go to Experimentation section and create a new one. 
+
+Fill the box (like the photo for example) :
+<img src="front/src/assets/new-experiment.PNG" width="50%" height="50%">
+<img src="front/src/assets/new-experiment1.PNG" width="50%" height="50%">
+<img src="front/src/assets/new-experiment2.PNG" width="50%" height="50%">
+<img src="front/src/assets/new-experiment3.PNG" width="50%" height="50%">
+
+
+### Step 5 : faire tourner les différentes versions et sauvegardés les statistiques de chacunes
+
+### Step 6 : Visualiser, et monitorer l'impact des variations à l'aide de GrowthBook
 
 https://www.youtube.com/watch?v=NCIEe1me9oE
 
