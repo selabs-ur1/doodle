@@ -24,7 +24,7 @@ docker-compose up -d
 
 Then go to [localhost:3000](localhost:3000). 
 
-You should arrive to this page : ![Alt Image text](front/src/app/assets/etape1.PNG?raw=true "Start menu")
+You should arrive to this page : ![Alt Image text](front/src/assets/etape1.PNG "Start menu")
 
 
 ### étape 2 : Ajouter la librairie GrowthBook dans le code de base
