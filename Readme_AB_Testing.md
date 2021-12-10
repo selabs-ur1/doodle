@@ -39,13 +39,13 @@ A metric will design on which way you will compare your version A and B
 ![Alt Image text](front/src/assets/new_metric.PNG "new metric")
 
 Set up your metric as you want. In this tuto we will use a Binomial metric and let the default value.
-![Alt Image text](front/src/assets/new-metric2.PNG "new metric")
+<img src="front/src/assets/new-metric2.PNG" width="50%" height="50%">
 
 
 
-<img src="front/src/assets/new-metric3.PNG" width="10%" height="10%">
+<img src="front/src/assets/new-metric3.PNG" width="50%" height="50%">
 
-![Alt Image text](front/src/assets/new-metric4.PNG "new metric")
+<img src="front/src/assets/new-metric4.PNG" width="50%" height="50%">
 
 
 
