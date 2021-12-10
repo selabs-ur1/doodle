@@ -86,6 +86,7 @@ Fill the box (like the photo for example) :
 <img src="front/src/assets/new-experiment2.PNG" width="50%" height="50%">
 <img src="front/src/assets/new-experiment3.PNG" width="50%" height="50%">
 
+Click on Start for running the test
 
 ### Step 5 : faire tourner les différentes versions et sauvegardés les statistiques de chacunes
 
