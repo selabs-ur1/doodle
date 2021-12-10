@@ -34,7 +34,7 @@ Connect with the information you have provided
 
 Go to the section Metrics click to add new metrics
 
-![Alt Image text](front/src/assets/new-metric.PNG "new metric")
+![Alt Image text](front/src/assets/new_metric.PNG "new metric")
 
 ### Step 2 : Ajouter la librairie GrowthBook dans le code de base
 
