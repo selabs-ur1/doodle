@@ -40,6 +40,7 @@ import { Selecteddate4userPipePipe } from './selecteddate4user-pipe.pipe';
 import { ModalPollClosComponent } from './modal-poll-clos/modal-poll-clos.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { ShowCommentsComponent } from './show-comments/show-comments.component';
+import { GrowthBookComponent } from './growth-book/growth-book.component';
 registerLocaleData(localeFr, 'fr');
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -59,7 +60,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     Selecteddate4userPipePipe,
     ModalPollClosComponent,
     TopBarComponent,
-    ShowCommentsComponent
+    ShowCommentsComponent,
+    GrowthBookComponent
   ],
   imports: [
     BrowserModule,

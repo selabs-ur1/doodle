@@ -10,13 +10,13 @@ import io.quarkus.test.junit.QuarkusTest;
 @QuarkusTest
 public class GreetingResourceTest {
 
-    @Test
-    public void testHelloEndpoint() {
-        /*given()
-                .when().get("/config-yaml/greeting")
-                .then()
-                .statusCode(200)
-                .body(is("hello quarkus!"));*/
-    }
+    // @Test
+    // public void testHelloEndpoint() {
+    //     /*given()
+    //             .when().get("/config-yaml/greeting")
+    //             .then()
+    //             .statusCode(200)
+    //             .body(is("hello quarkus!"));*/
+    // }
 
 }
