@@ -27,7 +27,7 @@
     "@fullcalendar/timegrid": "^5.3.1",
     "@ng-bootstrap/ng-bootstrap": "^8.0.4",
     "bootstrap": "^5.1.3",
-    "jquery": "^3.6.0",
+    "jquery": "^3.6.1",
     "primeicons": "^6.0.1",
     "primeng": "^10.0.3",
     "rxjs": "~6.6.0",
