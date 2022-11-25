@@ -12,7 +12,7 @@ Like A/B testing, the Canary method fits well with continous software deployment
 
 ## Implementation
 
-Canary and A/B testing being similar, we can then use the same tutorial than for [A/B testing](./ABTesting.md) made by Charly.
+Canary and A/B testing being similar, we can then use the same tutorial than for [A/B testing](./ABTesting.md).
 
 However, due to the difference in the objectives of both methods, we have to modify certain parameters. The first parameter is the population. We do not want to have a large part of the user base (for example 50% like in the A/B tutorial), so we can have different methods of user separation : 
   - Employees separation
