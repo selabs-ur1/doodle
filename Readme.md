@@ -16,3 +16,5 @@
 Our tutorial on A/B testing is available [here](./ABTesting.md)
 
 ## Canary testing
+
+Our tutorial on Canary is available [here](./CanaryTesting.md)
