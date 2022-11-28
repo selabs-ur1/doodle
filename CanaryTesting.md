@@ -40,3 +40,8 @@ If you want to test your application with a certain percentage of the user popul
 ![image](https://user-images.githubusercontent.com/101655310/204328006-da186631-397a-4324-9320-121c191f15c5.png)
 
 You are now able to change different separation rules based on your testing strategy !
+
+### Logging
+
+For the Canary testing method to work fully, you have to be able to detect errors within the population using the new features. For that, you need to be sure that your logging process is functionning well and easy for the users to use.
+If the test users are the employees, error reporting can even be easier because they will be able to quickly report and describe the errors.
