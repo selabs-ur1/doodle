@@ -24,9 +24,7 @@ After the feature creation in your Growthbook, instead of selecting A/B Experime
 
 ![image](https://user-images.githubusercontent.com/101655310/204324115-24561660-38ec-40d7-9d89-27a4a8526173.png)
 
-You then need to tick the "Identifier" column corresponding to the "employee" attribute, like shown in the image above.
-
-This will allow you to select "employee" as a separation factor later.
+You then need to tick the "Identifier" column corresponding to the "employee" attribute, like shown in the image above. This will allow you to select "employee" as a separation factor later.
 
 To do that, go to "Features>All Features" and select the feature created before. Like in the A/B testing tutorial, select **A/B Experiment** in the "Override Rules" section.
 
