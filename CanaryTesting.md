@@ -17,3 +17,19 @@ Canary and A/B testing being similar, we can then use the same tutorial than for
 However, due to the difference in the objectives of both methods, we have to modify certain parameters. The first parameter is the population. We do not want to have a large part of the user base (for example 50% like in the A/B tutorial), so we can have different methods of user separation : 
   - Employees separation
   - 90/10 ratio (or less depending on the magnitude of the changes or risks, going as low as 99/1), 10 being the percentage of the population getting the new features to test.
+
+### Employees separation
+
+After the feature creation in your Growthbook, instead of selecting A/B Experiment, we will have to go to "Features>Attributes" and then click on "Edit Attributes" on the top right corner.
+
+![image](https://user-images.githubusercontent.com/101655310/204324115-24561660-38ec-40d7-9d89-27a4a8526173.png)
+
+You then need to tick the "Identifier" column corresponding to the "employee" attribute, like shown in the image above.
+
+This will allow you to select "employee" as a separation factor later.
+
+To do that, go to "Features>All Features" and select the feature created before. Like in the A/B testing tutorial, select **A/B Experiment** in the "Override Rules" section.
+
+Instead of keeping the id in "Assign value based on attribute", you are now able to select "employee". Tick "Customize Split" in the "Exposure, Variations and Weight" section and bring the slider bar to 100% for the "On" option. This activates the option "On" for every employee, but no other user.
+
+![image](https://user-images.githubusercontent.com/101655310/204326712-d9952354-b4dd-4a55-aea0-d648ed98629c.png)
