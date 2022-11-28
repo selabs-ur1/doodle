@@ -31,3 +31,12 @@ To do that, go to "Features>All Features" and select the feature created before.
 Instead of keeping the id in "Assign value based on attribute", you are now able to select "employee". Tick "Customize Split" in the "Exposure, Variations and Weight" section and bring the slider bar to 100% for the "On" option. This activates the option "On" for every employee, but no other user.
 
 ![image](https://user-images.githubusercontent.com/101655310/204326712-d9952354-b4dd-4a55-aea0-d648ed98629c.png)
+
+
+### 99/1
+
+If you want to test your application with a certain percentage of the user population, you then need to use "id" instead of "employee" in your override rule, and then bring the slider to 1% for the "On" option instead of 100%. Only 1% of users will then have the new features.
+
+![image](https://user-images.githubusercontent.com/101655310/204328006-da186631-397a-4324-9320-121c191f15c5.png)
+
+You are now able to change different separation rules based on your testing strategy !
