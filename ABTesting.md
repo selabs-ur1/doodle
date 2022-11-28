@@ -98,7 +98,7 @@ We have created a feature available by default but It is not A/B testing yet, to
 
 ## Modifying the feature for A/B testing
 You can now access the feature you have created in "Features>All Features" and click on your feature to access its settings.<br>
-You can now scroll down to the "Override Rules" section, different rules can be added to this feature but we will select A/B experiment.
+You can now scroll down to the "Override Rules" section, different rules can be added to this feature but we will select **A/B experiment**.
 <img src='./Images/Overide.png' width=700>
 
 ### Targetting Attributes 
