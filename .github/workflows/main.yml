@@ -5,7 +5,7 @@ jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
-      - run: cd ..
+      - working-directory: ./
       - run: pwd
       - run: curl https://github.com/CodeIntelligenceTesting/jazzer/releases/download/v0.13.1/jazzer-linux.tar.gz
       #- run: tar xzvf jazzer-linux.tar.gz
