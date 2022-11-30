@@ -7,7 +7,7 @@ jobs:
     steps:
       - run: ls ${{ github.workspace }}
       - run: pwd; cd ../../../..; pwd; ls
-      - run: pwd; ls; curl https://github.com/CodeIntelligenceTesting/jazzer/releases/download/v0.13.1/jazzer-linux.tar.gz; ls
+      - run: pwd; ls; curl -v https://github.com/CodeIntelligenceTesting/jazzer/releases/download/v0.13.1/jazzer-linux.tar.gz; ls
       #- run: tar xzvf jazzer-linux.tar.gz
       - run: ls -a
       
