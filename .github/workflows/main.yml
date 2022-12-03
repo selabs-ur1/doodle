@@ -13,6 +13,10 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
+      - name: Setup Java JDK
+        uses: actions/setup-java@v3.7.0
+        with:
+            java-version: "11"
       - uses: isbang/compose-action@v1.4.1
         with:
           compose-file: "./api/docker-compose.yaml"
@@ -26,3 +30,5 @@ jobs:
           cd ./api
           ./mvnw package
           ls ./target
+          java -jar ./target/tlcdemoApp-1.0.0-SNAPSHOT-runner.jar
+          
