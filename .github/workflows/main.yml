@@ -16,8 +16,8 @@ jobs:
       - uses: isbang/compose-action@v1.4.1
         with:
           compose-file: "./api/docker-compose.yaml"
-          
-      - name: Download Jazzer
+          up-flags: "--build" 
+      - name: test
         run: |
          ls
          pwd
