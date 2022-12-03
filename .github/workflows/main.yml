@@ -16,16 +16,8 @@ jobs:
       - uses: isbang/compose-action@v1.4.1
         with:
           compose-file: "./api/docker-compose.yml"
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
           
       - name: Download Jazzer
         run: |
-          pwd
-          ls
-          curl https://github.com/CodeIntelligenceTesting/jazzer/releases/download/v0.13.1/jazzer-linux.tar.gz
-          ls
+         ls
+         pwd
