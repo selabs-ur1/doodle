@@ -21,3 +21,8 @@ jobs:
         run: |
          ls
          pwd
+      - name: maven build
+        run: |
+          cd ./api
+          ./mvnw package
+          ls ./target
