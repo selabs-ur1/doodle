@@ -17,6 +17,7 @@ jobs:
         uses: actions/setup-java@v3.7.0
         with:
             java-version: "11"
+            distribution: "jdk"
       - uses: isbang/compose-action@v1.4.1
         with:
           compose-file: "./api/docker-compose.yaml"
