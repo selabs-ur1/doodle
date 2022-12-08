@@ -29,6 +29,7 @@ jobs:
         # java -jar ./target/tlcdemoApp-1.0.0-SNAPSHOT-runner.jar
       - name: test
         run: |
+          ls
           cd ../
           ls
           ./jazzer --autofuzz=fr.istic.tlc.domain.User::new --cp=tlcdemoApp-1.0.0-SNAPSHOT-runner.jar
