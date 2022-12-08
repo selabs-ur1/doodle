@@ -31,5 +31,5 @@ jobs:
         run: |
           cd ../
           ls
-          docker run -v ./api/target/:/fuzzing cifuzz/jazzer --cp=tlcdemoApp-1.0.0-SNAPSHOT-runner.jar
+          ./jazzer --autofuzz=fr.istic.tlc.domain.User::new --cp=tlcdemoApp-1.0.0-SNAPSHOT-runner.jar
           
