@@ -29,6 +29,6 @@ jobs:
         # java -jar ./target/tlcdemoApp-1.0.0-SNAPSHOT-runner.jar
       - name: test
         run: |
-          cd ~
+          cd ../..
           ls
           
