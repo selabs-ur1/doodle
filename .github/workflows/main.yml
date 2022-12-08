@@ -29,6 +29,7 @@ jobs:
         # java -jar ./target/tlcdemoApp-1.0.0-SNAPSHOT-runner.jar
       - name: test
         run: |
-          cd ../..
+          cd ../
           ls
+          docker run -v ./api/target/:/fuzzing cifuzz/jazzer --cp=tlcdemoApp-1.0.0-SNAPSHOT-runner.jar
           
