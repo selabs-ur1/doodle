@@ -26,5 +26,9 @@ jobs:
           cd ./api
           ./mvnw package
           ls ./target
-          java -jar ./target/tlcdemoApp-1.0.0-SNAPSHOT-runner.jar
+        # java -jar ./target/tlcdemoApp-1.0.0-SNAPSHOT-runner.jar
+      - name: test
+        run: |
+          cd ~
+          ls
           
