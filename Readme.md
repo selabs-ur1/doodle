@@ -11,6 +11,8 @@
 
 ## Fuzzing
 
+Our tutorial on A/B testing is available [here](./Fuzzing.md)
+
 ## A/B Testing
 
 Our tutorial on A/B testing is available [here](./ABTesting.md)
