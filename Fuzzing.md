@@ -74,3 +74,49 @@ for val in fuzz_values:
 ```  
   
 this script is calling the API trying to find hidden pool.
+
+```
+Response for fuzz value 538BEB050aAbEE2E788eB988: 404
+Response for fuzz value FCb2eCd5175F8E69fcd3dcF4: 404
+Response for fuzz value eA47ecbd2eBe57393Eb7b2D7: 404
+Response for fuzz value 2f0b85c6A83094bEa1b47aBa: 404
+Response for fuzz value 1f83332CD7fDBBFC74c7d596: 404
+Response for fuzz value 4F63a34CbeBDAdD89bE15cc2: 404
+Response for fuzz value 6D53D03a1F2Db4B330Afd72E: 404
+Response for fuzz value 57D7bdAb1FFE4a45eF7Ba7Cb: 404
+Response for fuzz value B73b0F2B6Bd3Cb844FD77C40: 404
+Response for fuzz value c03fEBaAd2E84F2FEDDbEA6F: 404
+Response for fuzz value 0eC0EA9Fd8F802DdbB4C32eF: 404
+Response for fuzz value 7cEC2eBA2c8CaA7e450Bf633: 404
+Response for fuzz value 4DB83db2ed15D5da820fCeA0: 404
+Response for fuzz value CA2C4999d1fE4eF654fbA763: 404
+Response for fuzz value 9fE25DfFDFaFf23f5b4269D8: 404
+```
+
+This is a fraction of the result we get. Since we did not find any hidden pool we receive 404 errors.  
+  
+## Fuzz the backend binary 
+
+To fuzz our backend, we will use Jazzer. Jazzer is a fuzzer working with JVMs. The fuzzer will try to cover as much code as possible by using JVMs features to know what is the code coverage acheived by each input data.  
+The basic usage is to use the autofuzz fonctionality and let Jazzer decide what input and what mutators to use.  
+
+In the case of doodle we have not to forget to lauch the etherpad and database dockers.  
+
+```./jazzer --cp=./tlcdemoApp-1.0.0-SNAPSHOT.jar --autofuzz=org.apache.commons.imaging.Imaging::getBufferedImage```  
+  
+if jazzer find a bug it will save the raw input in a file and also a java code to reproduce the crash and easily turn it into a junit test case.  
+<img src='./Images/crash.png' width=650>  
+
+And the generated java code :  
+```java
+public class Crash_adc83b19e793491b1c6ea0fd8b46cd9f32e592fc {
+  public static void main(String[] args) throws Throwable {
+    (((java.util.function.Supplier<net.sourceforge.plantuml.yaml.SimpleYamlParser>) (() -> {net.sourceforge.plantuml.yaml.SimpleYamlParser autofuzzVariable0 = new net.sourceforge.plantuml.yaml.SimpleYamlParser(); return autofuzzVariable0;})).get()).parse((java.util.List) null);
+  }
+}
+```  
+
+If needed you can check the documentation to create more fine grained fuzzing target and build your own data generator.  
+
+## Conclusion  
+Fuzzing is way to test or attack software or API. For an in depth view on this subject you can check the fuzzing book https://www.fuzzingbook.org/ 
