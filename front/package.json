@@ -46,7 +46,7 @@
     "jasmine-spec-reporter": "~7.0.0",
     "karma": "~5.0.0",
     "@types/node": "^18.11.13",
-    "@types/jasmine": "~4.3.0",
+    "@types/jasmine": "~4.3.1",
     "@types/jasminewd2": "~2.0.10",
     "codelyzer": "^6.0.2",
     "jasmine-core": "~4.5.0",
