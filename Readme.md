@@ -6,12 +6,10 @@
  - Matilin Thomas
  - Léo Thuillier
 
-## Introduction
-
 
 ## Fuzzing
 
-Our tutorial on A/B testing is available [here](./Fuzzing.md)
+Our tutorial on Fuzzing is available [here](./Fuzzing.md)
 
 ## A/B Testing
 
