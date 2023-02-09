@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+      - uses: isbang/compose-action@v1.4.1
+        with:
+          compose-file: "./api/docker-compose.yaml"
+          up-flags: "--build" 
+      - name: test
+        run: |
+         ls
+         pwd
+      - name: maven build
+        run: |
+          cd ./api
+          ./mvnw package
+          ls ./target
+        # java -jar ./target/tlcdemoApp-1.0.0-SNAPSHOT-runner.jar
+      - name: test
+        run: |
+          ls -la
+          ./jazzer --autofuzz=fr.istic.tlc.domain.User::new --cp=tlcdemoApp-1.0.0-SNAPSHOT-runner.jar
+          

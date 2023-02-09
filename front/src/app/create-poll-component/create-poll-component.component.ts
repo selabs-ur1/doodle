@@ -1,16 +1,22 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { PollService } from '../poll-service.service';
 import { FullCalendarComponent, CalendarOptions, EventInput } from '@fullcalendar/angular';
 import frLocale from '@fullcalendar/core/locales/fr';
 import { PollChoice, Poll, User } from '../model/model';
 import { ActivatedRoute } from '@angular/router';
+import { ABTestingService } from '../abtesting.service';
+import { GrowthBook } from "@growthbook/growthbook";
+
+
+
+
 
 @Component({
   selector: 'app-create-poll-component',
   templateUrl: './create-poll-component.component.html',
   styleUrls: ['./create-poll-component.component.css'],
-  providers: [MessageService, PollService, FullCalendarComponent]
+  providers: [MessageService, PollService, FullCalendarComponent, ABTestingService]
 })
 export class CreatePollComponentComponent implements OnInit {
   urlsondage = '';
@@ -35,6 +41,9 @@ export class CreatePollComponentComponent implements OnInit {
   hasics = false;
   loadics = false;
   ics: string;
+
+  centerValue=false;
+
 
   @ViewChild('calendar') set content(content: FullCalendarComponent) {
     if (content) { // initially setter gets called with undefined
@@ -68,9 +77,14 @@ export class CreatePollComponentComponent implements OnInit {
   submitted = false;
 
 
-  constructor(public messageService: MessageService, public pollService: PollService, private actRoute: ActivatedRoute) { }
+  constructor(public messageService: MessageService, public pollService: PollService, private actRoute: ActivatedRoute,public ABTesting: ABTestingService) { 
+  }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    await this.ABTesting.init();
+
+    this.centerValue = this.ABTesting.getState("center-title")
+
     this.poll.pollChoices = [];
     this.items = [{
       label: 'Informations pour le rendez vous',
@@ -110,7 +124,7 @@ export class CreatePollComponentComponent implements OnInit {
           id: this.getUniqueId(8),
 
           extendedProps: {
-//            tmpId: this.getUniqueId(8)
+            //            tmpId: this.getUniqueId(8)
           },
         };
         calendarApi.addEvent(evt, true);
@@ -144,17 +158,17 @@ export class CreatePollComponentComponent implements OnInit {
       },
       eventClick: (info) => {
         const evt = this.events.filter(e => e.id === info.event.id).pop();
-        if (evt != null){
-        const index = this.events.indexOf(evt);
-        if (index > -1) {
-          this.events.splice(index, 1);
+        if (evt != null) {
+          const index = this.events.indexOf(evt);
+          if (index > -1) {
+            this.events.splice(index, 1);
+          }
+          const index1 = this.allevents.indexOf(evt);
+          if (index1 > -1) {
+            this.allevents.splice(index1, 1);
+          }
+          info.event.remove();
         }
-        const index1 = this.allevents.indexOf(evt);
-        if (index1 > -1) {
-          this.allevents.splice(index1, 1);
-        }
-        info.event.remove();
-      }
 
       },
       validRange: {
@@ -164,7 +178,7 @@ export class CreatePollComponentComponent implements OnInit {
 
     this.actRoute.paramMap.subscribe(params => {
       this.slugid = params.get('slugadminid');
-      console.log(this.slugid);
+      //console.log(this.slugid);
 
       if (this.slugid != null) {
 
@@ -346,7 +360,7 @@ export class CreatePollComponentComponent implements OnInit {
         evt1.backgroundColor = 'red';
         evt1.extendedProps.selected = false;
         evt2.setProp('backgroundColor', 'red');
-//        this.poll.pollChoices.filter(pc => pc.id === evt1.extendedProps.choiceid)[0].users.push({ id: -1 });
+        //        this.poll.pollChoices.filter(pc => pc.id === evt1.extendedProps.choiceid)[0].users.push({ id: -1 });
       });
       unselected.forEach(e => {
         const evt1 = this.events.filter(ev => ev.extendedProps.choiceid === e)[0];
